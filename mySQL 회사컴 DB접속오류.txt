@@ -1,0 +1,9 @@
+mySQL DB접속오류
+
+https://linguist79.tistory.com/1184
+
+https://itmining.tistory.com/120
+
+https://www.ecosia.org/search?q=Access%20denied%20for%20user%20%27root%27%40%27localhost%27%20(using%20password:%20YES)uery
+
+https://joonyon.tistory.com/2
