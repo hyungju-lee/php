@@ -23,7 +23,8 @@
     $user = "root";
     $pw = "";
     $dbName = "php200Example2";
-    $dbConnect2 = new mysqli($host, $user, $pw, $dbName);
+    $port = 3307;
+    $dbConnect2 = new mysqli($host, $user, $pw, $dbName, $port);
     $dbConnect2->set_charset("utf8");
 
     if (mysqli_connect_errno()) {

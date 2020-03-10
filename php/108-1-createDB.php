@@ -22,7 +22,9 @@
     $host = "localhost";
     $user = "root";
     $pw = "";
-    $dbConnect = new mysqli($host, $user, $pw);
+    $database = null;
+    $port = 3307;
+    $dbConnect = new mysqli($host, $user, $pw, $database, $port);
     $dbConnect->set_charset("utf8");
 
     if (mysqli_connect_errno()) {
