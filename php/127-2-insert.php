@@ -17,8 +17,31 @@
 
     foreach ($score as $s) {
         $sql = "INSERT INTO schoolRecord";
-        $sql .= "()"
+        $sql .= "(myMemberID, class, english, math, science, japanese, coding)";
+        $sql .= "VALUES({$s[0]}, {$s[1]}, {$s[2]}, {$s[3]}, {$s[4]}, {$s[5]}, {$s[6]})";
+
+        $result = $dbConnect2->query($sql);
+        $cnt++;
+
+        if ($result) {
+            echo $cnt.' 데이터 입력 성공'.'<br>';
+        } else {
+            echo $cnt.' 데이터 입력 실패'.'<br>';
+        }
     }
 
-
+    /*
+     * 집계 함수의 종류
+     * 
+     * count(필드명) : 레코드의 개수를 표시(값이 null인 경우 포함되지 않음)
+     * count(*) : 레코드의 개수를 표시(null을 포함)
+     * sum(필드명) : 필드 값의 합계를 표시
+     * avg(필드명) : 필드 값의 평균을 표시
+     * max(필드명) : 필드 값의 최대값을 표시
+     * min(필드명) : 필드 값의 최소값을 표시
+     *
+     * SELECT count(class) FROM schoolRecord;
+     *
+     *
+     * */
 ?>
