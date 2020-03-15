@@ -31,7 +31,7 @@
     }
 
     // 한글로 구성되어 있는지 정규식 검사
-    $nickNameRegPattern = '/^[가-힣]{1,}$';
+    $nickNameRegPattern = '/^[가-힣]{1,}$/';
     if (!preg_match($nickNameRegPattern, $nickName, $matches)) {
         goSignUpPage('닉네임은 한글로만 입력해 주세요.');
         exit;
@@ -104,7 +104,7 @@
     if ($isEmailCheck == true && $isNickNameCheck == true) {
         $regTime = time();
         $sql = "INSERT INTO member(email, nickname, pw, birthday, regTime)";
-        $sql .= "VALUES('{$email}', '{$nickName}', '{$pw}',')";
+        $sql .= "VALUES('{$email}', '{$nickName}', '{$pw}', ";
         $sql .= "'{$birth}', {$regTime})";
         $result = $dbConnect->query($sql);
 

@@ -13,7 +13,7 @@
 ?>
         <a href="signUp/173-signUpForm.php">회원가입</a>
         <br>
-        <a href="siginIn/175-signInForm.php">로그인</a>
+        <a href="signIn/175-signInForm.php">로그인</a>
 <?php
     } else {
 ?>

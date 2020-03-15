@@ -3,7 +3,7 @@
 <head></head>
 <body>
 <h1>로그인</h1>
-<form name="signIn" method="post" action="./176-signInProcession.php">
+<form name="signIn" method="post" action="./176-signInProcessing.php">
     이메일 <br>
     <input type="email" name="userEmail" required>
     <br><br>
