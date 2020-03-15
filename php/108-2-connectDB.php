@@ -29,8 +29,11 @@
 
     if (mysqli_connect_errno()) {
         echo "데이터베이스 {$dbName}에 접속 실패<br>";
-    } else {
-        echo "데이터베이스 {$dbName}에 접속 성공<br>";
     }
+//    if (mysqli_connect_errno()) {
+//        echo "데이터베이스 {$dbName}에 접속 실패<br>";
+//    } else {
+//        echo "데이터베이스 {$dbName}에 접속 성공<br>";
+//    }
 ?>
 
