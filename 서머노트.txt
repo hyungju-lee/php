@@ -1,0 +1,9 @@
+
+
+서머노트
+https://summernote.org/examples/
+서머노트 언어설정
+https://github.com/summernote/summernote/blob/master/lang/summernote-ko-KR.js
+
+부트스트랩
+https://getbootstrap.com/docs/4.4/getting-started/introduction/
