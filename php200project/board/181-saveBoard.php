@@ -8,10 +8,55 @@
      * 다음은 게시글을 board 테이블에 저장하는 예제입니다.
      * */
 
+    // board 테이블의 memberID 필드에는 $_SESSION['memberID'] 의 값을 입력하므로
+    // session_start() 함수가 있는 파일을 include 합니다.
     include $_SERVER['DOCUMENT_ROOT'].'/php200project/common/171-session.php';
+    // 로그인을 하지 않고 181-saveBoard.php 에 접근하는 것을 방지하도록 179-checkSignSession.php 파일을 include 합니다.
     include $_SERVER['DOCUMENT_ROOT'].'/php200project/common/179-checkSignSession.php';
+    // board 테이블에 데이터를 입력하므로 데이터베이스 접속 프로그램인 163-connection.php 파일을 include 합니다.
     include $_SERVER['DOCUMENT_ROOT'].'/php200project/connection/163-connection.php';
 
+    // 전달받은 제목과 내용을 변수에 대입합니다.
     $title = $_POST['title'];
     $content = $_POST['content'];
+
+    // 제콕 데이터인 변수 title 의 값이 공백인지 확인하며 공백이 아니면 real_escape_string() 메소드를 사용합니다.
+    // real_escape_string() 함수는 문자열 속 특수문자가 쿼리문에서 오류를 일으키지 않도록 하는 기능을 갖습니다.
+    if ($title != null && $title != '') {
+        $title = $dbConnect->real_escape_string($title);
+    } else {
+        echo "제목을 입력하세요.";
+        echo "<a href='./180-writeForm.php'>작성 페이지로 이동</a>";
+    }
+
+    // 내용 데이터 변수 content 의 값이 공백인지 확인하며 공백이 아니면 real_escape_string() 메소드를 사용합니다.
+    if ($content != null && $content != '') {
+        $content = $dbConnect->real_escape_string($content);
+    } else {
+        echo "내용을 입력하세요.";
+        echo "<a href='180-writeForm.php'>작성 페이지로 이동</a>";
+        exit;
+    }
+
+    // board 테이블의 memberID 필드에 입력할 값이 세션 $_SESSION['memberID'] 를 변수 memberID 에 대입합니다.
+    $memberID = $_SESSION['memberID'];
+
+    // 해당 게시물의 입력 시간을 변수 regTime 에 대입합니다.
+    $regTime = time();
+
+    // 게시물을 board 테이블에 입력하는 쿼리문입니다.
+    $sql = "INSERT INTO board (memberID, title, content, regTime) ";
+    $sql .= "VALUES ({$memberID}, '{$title}', '{$content}', {$regTime})";
+    // 쿼리문을 실행합니다.
+    $result = $dbConnect->query($sql);
+
+    if ($result) {
+        echo "저장 완료";
+        echo "<a href='./183-list.php'>게시글 목록으로 이동</a>";
+        exit;
+    } else {
+        echo "저장 실패 - 관리자에게 문의";
+        echo "<a href='./183-list.php'>게시글 목록으로 이동</a>";
+        exit;
+    }
 ?>
