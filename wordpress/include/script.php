@@ -5,4 +5,5 @@
     echo "<script src='https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js'></script>";
     echo "<script src='{$root}/js/lang/summernote-ko-KR.js'></script>";
     echo "<script src='{$root}/js/main_script.js'></script>";
+    echo "<script src='{$root}/js/edit_script.js'></script>";
 ?>
