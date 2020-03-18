@@ -31,29 +31,21 @@
             <h2 class='list_h2'>Subject</h2>
         <?php
 
-                $sql = "SHOW TABLES";
+                $sql = "SHOW TABLES WHERE `Tables_In_hyungju12` NOT LIKE 'member'";
                 $result = $dbConnect->query($sql);
 
                 if ($result) {
-                    $tableName = $result->fetch_array(MYSQLI_NUM);
-                    $dataCount = $result->num_rows;
-                    var_dump($tableName);
-                    echo $dataCount;
         ?>
             <ul class="page_list">
         <?php
-            for ($i=0; $i<$dataCount; $i++) {
-                echo "<li class='page_list_item'><a href='' class='page_link'>$tableName[$i]</a></li>";
+            while ($row = mysqli_fetch_row($result)) {
+                echo "<li class='page_list_item'><a href='board/{$row[0]}/list.php' class='page_link'>{$row[0]}</a></li>";
             }
         ?>
             </ul>
         <?php
-
-
                 }
         ?>
-            <a href="board/list.php">게시판</a>
-            <br>
             <a href="signIn/signOut.php">로그아웃</a>
         <?php
             }

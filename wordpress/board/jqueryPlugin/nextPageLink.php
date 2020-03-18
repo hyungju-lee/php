@@ -1,3 +1,5 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
 <?php
     /*
      * 다음 페이지로 이동 링크 생성하기
@@ -19,8 +21,8 @@
     date_default_timezone_set('Asia/Seoul');
 
     // 전체 레코드 수 구하기
-    // plugin 테이블의 레코드 수를 불러오는 쿼리문입니다.
-    $sql = "SELECT count(pluginID) FROM plugin";
+    // jqueryPlugin 테이블의 레코드 수를 불러오는 쿼리문입니다.
+    $sql = "SELECT count(jqueryPluginID) FROM jqueryPlugin";
     // 쿼리문을 실행합니다.
     $result = $dbConnect->query($sql);
 
@@ -29,26 +31,32 @@
         exit;
     }
 
-    // 쿼리문의 데이터를 변수 pluginTotalCount 에 대입합니다.
-    $pluginTotalCount = $result->fetch_array(MYSQLI_ASSOC);
-    // 변수 pluginTotalCount 의 레코드 수 정보를 변수 pluginTotalCount 에 다시 대입합니다.
-    $pluginTotalCount = $pluginTotalCount['count(pluginID)'];
+    // 쿼리문의 데이터를 변수 jqueryPluginTotalCount 에 대입합니다.
+    $jqueryPluginTotalCount = $result->fetch_array(MYSQLI_ASSOC);
+    // 변수 jqueryPluginTotalCount 의 레코드 수 정보를 변수 jqueryPluginTotalCount 에 다시 대입합니다.
+    $jqueryPluginTotalCount = $jqueryPluginTotalCount['count(jqueryPluginID)'];
 
     // 총 페이지 수
     // 총 페이지 수를 구합니다. 변수 numView 는 183-list.php 의 30라인에 선언되어 있습니다.
     // ceil() 함수는 올림을 하는 함수이며, 변수 newView 의 값인 20으로 페이지를 구성할 때 남는 게시물을 표시하기 위해
     // 반올림이나, 버림 처리를 하지 않고 올림 처리를 합니다.
-    $totalPage = ceil($pluginTotalCount / $numView);
+    $totalPage = ceil($jqueryPluginTotalCount / $numView);
 
     // 처음 페이지 이동 링크
     // 처음 페이지로 이동하는 링크입니다.
     // $_GET 방식을 사용하여 page 의 값을 1로 적용합니다.
-    echo "<a href='./list.php?page=1'>처음</a>&nbsp;";
+    echo "<li class='page-item'>";
+    echo "<a class='page-link' href='./list.php?page=1' aria-label='Previous'>";
+    echo "<span aria-hidden='true'>&laquo;</span>";
+    echo "</a>";
+    echo "</li>";
 
     // 이전 페이지 이동 링크
     if ($page != 1) {
         $previousPage = $page -1;
-        echo "<a href='list.php?page={$previousPage}'>이전</a>";
+        echo "<li class='page-item'>";
+        echo "<a class='page-link' href='list.php?page={$previousPage}'>이전</a>";
+        echo "</li>";
     }
 
     // 현재 페이지 앞 뒤 페이지 수 표시
@@ -73,21 +81,30 @@
     }
 
     for ($i=$startPage; $i<=$lastPage; $i++) {
-        $nowPageColor = 'unset';
+        $className = null;
         if ($i == $page) {
-            $nowPageColor = 'hotpink';
+            $className = 'active';
         }
-        echo "&nbsp;<a href='./list.php?page={$i}'";
-        echo "style='color:{$nowPageColor}'>{$i}</a>&nbsp;";
+        echo "<li class='page-item {$className}'>";
+        echo "<a class='page-link' href='./list.php?page={$i}'";
+        echo ">{$i}</a>";
+        echo "</li>";
     }
 
     // 다음 페이지 이동 링크
     if ($page != $totalPage) {
         $nextPage = $page + 1;
-        echo "<a href='./list.php?page={$nextPage}'>다음</a>";
+        echo "<li class='page-item'>";
+        echo "<a class='page-link' href='./list.php?page={$nextPage}'>다음</a>";
+        echo "</li>";
     }
 
     // 마지막 페이지 이동 링크
-    echo "&nbsp;<a href='list.php?page={$totalPage}'>끝</a>";
+    echo "<li class='page-item'>";
+    echo "<a class='page-link' href='list.php?page={$totalPage}' aria-label='Next'>";
+    echo "<span aria-hidden='true'>&raquo;</span>";
+    echo "</a>";
+    echo "</li>";
 ?>
-
+    </ul>
+</nav>

@@ -1,21 +1,21 @@
 <?php
     /*
-     * 앞에서 생성한 게시글 입력폼 페이지에서 입력한 정보를 plugin 테이블에 저장하는 기능을 생성하겠습니다.
+     * 앞에서 생성한 게시글 입력폼 페이지에서 입력한 정보를 jqueryPlugin 테이블에 저장하는 기능을 생성하겠습니다.
      * 제목을 입력하는 태그와 내용을 입력하는 태그에 required 속성을 사용했습니다.
      * 서버에서도 이 값이 제대로 입력되었는지 확인 후 제대로 입력되었다면 테이블에 입력하며
      * 그렇지 않은 경우 게시글 입력폼이 있는 페이지로 이동하는 링크를 출력합니다.
      *
-     * 다음은 게시글을 plugin 테이블에 저장하는 예제입니다.
+     * 다음은 게시글을 jqueryPlugin 테이블에 저장하는 예제입니다.
      * */
 
     date_default_timezone_set('Asia/Seoul');
 
-    // plugin 테이블의 memberID 필드에는 $_SESSION['memberID'] 의 값을 입력하므로
+    // jqueryPlugin 테이블의 memberID 필드에는 $_SESSION['memberID'] 의 값을 입력하므로
     // session_start() 함수가 있는 파일을 include 합니다.
     include '../../common/session.php';
-    // 로그인을 하지 않고 181-saveplugin.php 에 접근하는 것을 방지하도록 179-checkSignSession.php 파일을 include 합니다.
+    // 로그인을 하지 않고 181-savejqueryPlugin.php 에 접근하는 것을 방지하도록 179-checkSignSession.php 파일을 include 합니다.
     include '../../common/checkSignSession.php';
-    // plugin 테이블에 데이터를 입력하므로 데이터베이스 접속 프로그램인 163-connection.php 파일을 include 합니다.
+    // jqueryPlugin 테이블에 데이터를 입력하므로 데이터베이스 접속 프로그램인 163-connection.php 파일을 include 합니다.
     include '../../connection/connection.php';
 
     // 전달받은 제목과 내용을 변수에 대입합니다.
@@ -40,14 +40,14 @@
         exit;
     }
 
-    // plugin 테이블의 memberID 필드에 입력할 값이 세션 $_SESSION['memberID'] 를 변수 memberID 에 대입합니다.
+    // jqueryPlugin 테이블의 memberID 필드에 입력할 값이 세션 $_SESSION['memberID'] 를 변수 memberID 에 대입합니다.
     $memberID = $_SESSION['memberID'];
 
     // 해당 게시물의 입력 시간을 변수 regTime 에 대입합니다.
     $regTime = time();
 
-    // 게시물을 plugin 테이블에 입력하는 쿼리문입니다.
-    $sql = "INSERT INTO plugin (memberID, title, content, regTime) ";
+    // 게시물을 jqueryPlugin 테이블에 입력하는 쿼리문입니다.
+    $sql = "INSERT INTO jqueryPlugin (memberID, title, content, regTime) ";
     $sql .= "VALUES ({$memberID}, '{$title}', '{$content}', {$regTime})";
     // 쿼리문을 실행합니다.
     $result = $dbConnect->query($sql);

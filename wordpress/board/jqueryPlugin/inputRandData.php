@@ -3,10 +3,10 @@
      * 임의로 게시물 입력하기
      * 게시물의 목록 페이지를 만들겠습니다.
      * 그 전에 게시물 리스트로 생성하려면 많은 게시물 데이터가 필요합니다.
-     * 게시물 입력폼이 있는 페이지로 여러 개의 게시물을 직접 입력하려면 불편하므로 프로그래밍을 통해 임의로 plugin 테이블에
+     * 게시물 입력폼이 있는 페이지로 여러 개의 게시물을 직접 입력하려면 불편하므로 프로그래밍을 통해 임의로 jqueryPlugin 테이블에
      * 데이터를 입력하겠습니다.
      *
-     * 다음은 plugin 테이블에 임의로 데이터를 입력하는 예제입니다.
+     * 다음은 jqueryPlugin 테이블에 임의로 데이터를 입력하는 예제입니다.
      * */
     date_default_timezone_set('Asia/Seoul');
     include '../../common/session.php';
@@ -17,10 +17,10 @@
     for ($i=1; $i<165; $i++) {
         // 레코드를 입력하는 시간을 변수 time 에 대입합니다.
         $time = time();
-        // plugin 테이블에 입력할 쿼리문입니다.
+        // jqueryPlugin 테이블에 입력할 쿼리문입니다.
         // 제목에는 변수 i의 값을 사용하여 몇 번째 제목이라는 문구가 입력되며
         // 내용에는 변수 i의 값을 사용하여 몇 번째 내용이라는 문구가 입력됩니다.
-        $sql = "INSERT INTO plugin (memberID, title, content, regTime)";
+        $sql = "INSERT INTO jqueryPlugin (memberID, title, content, regTime)";
         $sql .= "VALUES (1, '{$i}번째 제목', '{$i}번째 내용', {$time})";
         $result = $dbConnect->query($sql);
 

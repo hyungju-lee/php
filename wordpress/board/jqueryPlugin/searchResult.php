@@ -28,7 +28,7 @@
     }
 
     // 게시물을 불러오는 쿼리문이며 WHERE 문은 포함되지 않았습니다.
-    $sql = "SELECT b.pluginID, b.title, m.nickname, b.regTime FROM plugin b ";
+    $sql = "SELECT b.jqueryPluginID, b.title, m.nickname, b.regTime FROM jqueryPlugin b ";
     $sql .= "JOIN member m ON (b.memberID = m.memberID)";
 
     // 검색 옵션값에 따른 쿼리문의 WHERE 문입니다.
@@ -90,8 +90,8 @@ include "../../include/head.php";
                     for ($i=0; $i<$dataCount; $i++) {
                         $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                         echo "<tr>";
-                        echo "<td>".$memberInfo['pluginID']."</td>";
-                        echo "<td><a href='./view.php?pluginID={$memberInfo['pluginID']}'>";
+                        echo "<td>".$memberInfo['jqueryPluginID']."</td>";
+                        echo "<td><a href='./view.php?jqueryPluginID={$memberInfo['jqueryPluginID']}'>";
                         echo "{$memberInfo['title']}</a></td>";
                         echo "<td>".$memberInfo['nickname']."</td>";
                         echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";

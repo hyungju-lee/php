@@ -50,12 +50,14 @@ include "../../include/head.php";
 
                     if ($memberID == $contentInfo['memberID']) {
 
-                        echo "<button id='edit' class='btn btn-primary' onclick='edit()' type='button'>Edit</button>";
-                        echo "<button id='save' class='btn btn-primary' onclick='save()' type='submit'>Save</button>";
+                        echo "<button id='edit' class='btn btn-primary' onclick='edit()' type='button'>편집</button>";
+                        echo "<button id='save' class='btn btn-primary' onclick='save()' type='submit'>수정완료</button>";
+                        echo "<button id='save' class='btn btn-primary' type='submit'>저장</button>";
+                        echo "<button id='save' class='btn btn-primary' type='submit'>삭제</button>";
 
                     }
 
-                    echo "<a href='/wordpress/css/list.php'>목록으로 이동</a>";
+                    echo "<a href='list.php'>목록으로 이동</a>";
                 } else {
                     echo "잘못된 접근입니다.";
                     exit;
