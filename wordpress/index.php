@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('Asia/Seoul');
     include './common/session.php';
     // include './common/checkSignSession.php';
     include './connection/connection.php';
@@ -26,6 +27,30 @@
             <a href="signIn/signInForm.php">로그인</a>
         <?php
             } else {
+        ?>
+            <h2 class='list_h2'>Subject</h2>
+        <?php
+
+                $sql = "SHOW TABLES";
+                $result = $dbConnect->query($sql);
+
+                if ($result) {
+                    $tableName = $result->fetch_array(MYSQLI_NUM);
+                    $dataCount = $result->num_rows;
+                    var_dump($tableName);
+                    echo $dataCount;
+        ?>
+            <ul class="page_list">
+        <?php
+            for ($i=0; $i<$dataCount; $i++) {
+                echo "<li class='page_list_item'><a href='' class='page_link'>$tableName[$i]</a></li>";
+            }
+        ?>
+            </ul>
+        <?php
+
+
+                }
         ?>
             <a href="board/list.php">게시판</a>
             <br>

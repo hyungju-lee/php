@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('Asia/Seoul');
     include '../connection/connection.php';
 
     $sql = "CREATE TABLE member (";

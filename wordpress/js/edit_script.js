@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#summernote').summernote({
+    $('.summernote').summernote({
         placeholder: 'Hello Bootstrap 4',
         tabsize: 2,
         lang: 'ko-KR', // default: 'en-US'

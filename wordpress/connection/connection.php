@@ -1,8 +1,9 @@
 <?php
+    date_default_timezone_set('Asia/Seoul');
     $host = "localhost";
     $user = "root";
     $pw = "";
-    $database = "php200project";
+    $database = "hyungju12";
     $port = 3307;
     $dbConnect = new mysqli($host, $user, $pw, $database, $port);
     $dbConnect -> set_charset("utf8");

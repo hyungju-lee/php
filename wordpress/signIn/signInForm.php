@@ -1,3 +1,6 @@
+<?php
+    date_default_timezone_set('Asia/Seoul');
+?>
 <!DOCTYPE HTML>
 <html lang="ko-KR">
 <?php
@@ -8,7 +11,7 @@
 <body>
 <div id="wrap">
     <?php
-        $root = '../';
+        $root = '..';
         include "../include/header.php";
     ?>
     <div id="container">
@@ -30,5 +33,9 @@
         include "../include/footer.php";
     ?>
 </div>
+<?php
+$root = '..';
+include "../include/script.php";
+?>
 </body>
 </html>
