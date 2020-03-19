@@ -110,6 +110,7 @@
                 include 'nextPageLink.php';
                 include 'searchForm.php';
             ?>
+            <a href="../../index.php">메인페이지가기</a>
         </div>
     </div>
     <?php

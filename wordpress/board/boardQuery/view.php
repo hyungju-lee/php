@@ -54,10 +54,7 @@ include "../../include/head.php";
 
                     if ($memberID == $contentInfo['memberID']) {
 
-                        echo "<button id='edit' class='btn btn-primary' onclick='edit()' type='button'>편집</button>";
-                        echo "<button id='save' class='btn btn-primary' onclick='save()' type='button'>수정완료</button>";
-
-                        echo "<a href='updateWriteForm.php?memberID={$sortPK}' class='btn btn-primary btn-save'>저장</a>";
+                        echo "<a href='updateWriteForm.php?sort={$sort}&sortID={$sortPK}' class='btn btn-update'>수정</a>";
 
                         echo "<form class='del-form' action='' method='post'>";
                         echo "<input type='hidden' name='sortID' value='{$sortPK}'>";
@@ -94,14 +91,14 @@ $root = '../..';
 include "../../include/script.php";
 ?>
 <script>
-    var edit = function() {
-        $('.click2edit').summernote({focus: true});
-    };
-
-    var save = function() {
-        var markup = $('.click2edit').summernote('code');
-        $('.click2edit').summernote('destroy');
-    };
+    // var edit = function() {
+    //     $('.click2edit').summernote({focus: true});
+    // };
+    //
+    // var save = function() {
+    //     var markup = $('.click2edit').summernote('code');
+    //     $('.click2edit').summernote('destroy');
+    // };
 
     function delete_ly() {
         document.querySelector('.delete_ly').style.display = 'block';

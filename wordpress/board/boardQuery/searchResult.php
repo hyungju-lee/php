@@ -106,6 +106,9 @@ include "../../include/head.php";
                 ?>
                 </tbody>
             </table>
+            <?php
+            echo "<a href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+            ?>
         </div>
     </div>
     <?php

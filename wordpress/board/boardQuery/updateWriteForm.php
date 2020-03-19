@@ -7,11 +7,24 @@
     // 메인 페이지로 이동하는 기능이 작동하기 위해 session_start() 함수가 있는
     // 171-session.php 파일을 include 합니다.
     include '../../common/session.php';
+    include '../../connection/connection.php';
     // 로그인을 하지 않은 상태에서 메인페이지로 이동하는 기능을 하는 파일인 179-checkSignSession.php 파일을 include 합니다.
     include '../../common/checkSignSession.php';
 
     $sort = $_GET['sort'];
     $sortID = $sort.'ID';
+    $sortPK = $_GET['sortID'];
+
+    $sql = "SELECT title, content FROM {$sort} WHERE {$sortID} = {$sortPK}";
+    $result = $dbConnect->query($sql);
+
+    if (!$result) {
+        echo "오류";
+    }
+
+    $boardInfo = $result->fetch_array(MYSQLI_ASSOC);
+    $boardTitle = $boardInfo['title'];
+    $boardCont = $boardInfo['content'];
 ?>
 
 <!DOCTYPE HTML>
@@ -29,15 +42,19 @@
     <div id="container">
         <div id="contents">
             <?php
-                echo "<form name='boardWrite' method='post' action='saveboard.php?sort={$sort}'>";
+                echo "<form name='boardWrite' method='post' action='update.php?sort={$sort}&sortID={$sortPK}'>";
             ?>
                 제목
                 <br><br>
-                <input type="text" name="title" required>
+            <?php
+                echo "<input type='text' name='title' value='{$boardTitle}' required>";
+            ?>
                 <br><br>
                 내용
                 <br><br>
-                <textarea name="content" class="summernote" required></textarea>
+            <?php
+                echo "<textarea name='content' class='summernote' required>{$boardCont}</textarea>";
+            ?>
                 <br><br>
                 <input type="submit" value="저장">
                 <button type="button" onclick="cancel();">취소</button>
