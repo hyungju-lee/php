@@ -12,8 +12,11 @@
     include '../../common/session.php';
     // 비로그인 시에 접근할 수 없도록 179-checkSignSession.php 파일을 include 합니다.
     include '../../common/checkSignSession.php';
-    // member 테이블과 jqueryPlugin 테이블의 데이터를 가져오므로 163-connection.php 파일을 include 합니다.
+    // member 테이블과 $sort 테이블의 데이터를 가져오므로 163-connection.php 파일을 include 합니다.
     include '../../connection/connection.php';
+
+    $sort = $_GET['sort'];
+    $sortID = $sort.'ID';
 ?>
 
 <!DOCTYPE HTML>
@@ -31,16 +34,19 @@
     ?>
     <div id="container">
         <div id="contents">
-            <a href="writeForm.php">글작성하기</a>
+            <?php
+            echo "<a href='writeForm.php?sort={$sort}'>글작성하기</a>";
+            ?>
             <a href="../../signIn/signOut.php">로그아웃</a>
-
-            <h2 class="list_h2">jqueryPlugin</h2>
-            <table class="table">
-                <thead class="thead-dark">
-                <th scope="col">번호</th>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">게시일</th>
+            <?php
+            echo "<h2 class='list_h2'>{$sort}</h2>";
+            ?>
+            <table>
+                <thead>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>게시일</th>
                 </thead>
                 <tbody>
                 <?php
@@ -61,10 +67,10 @@
                     $firstLimitValue = ($numView * $page) - $numView;
 
                     // 게시글의 데이터를 불러오는 쿼리문입니다.
-                    // 작성자 정보를 함께 표시하지만 jqueryPlugin 테이블에는 작성자 정보가 없기 때문에 member 테이블과 함께 memberID 정보를 매칭하여
+                    // 작성자 정보를 함께 표시하지만 $sort 테이블에는 작성자 정보가 없기 때문에 member 테이블과 함께 memberID 정보를 매칭하여
                     // 작성자 정보를 함께 불러옵니다.
-                    $sql = "SELECT b.jqueryPluginID, b.title, m.nickname, b.regTime FROM jqueryPlugin b ";
-                    $sql .= "JOIN member m ON (b.memberID = m.memberID) ORDER BY jqueryPluginID ";
+                    $sql = "SELECT b.{$sortID}, b.title, m.nickname, b.regTime FROM {$sort} b ";
+                    $sql .= "JOIN member m ON (b.memberID = m.memberID) ORDER BY {$sortID} ";
                     $sql .= "DESC LIMIT {$firstLimitValue}, {$numView}";
                     $result = $dbConnect->query($sql);
 
@@ -76,16 +82,16 @@
                             for ($i=0; $i<$dataCount; $i++) {
                                 $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                                 echo "<tr>";
-                                echo "<td scope='row'>".$memberInfo['jqueryPluginID']."</td>";
+                                echo "<td>".$memberInfo[$sortID]."</td>";
                                 // 제목을 누르면 해당 게시물의 내용을 볼 수 있는 페이지로 이동해야 하므로
                                 // a 링크를 사용하여 주소를 지정합니다.
-                                // jqueryPluginID 의 값을 GET 방식으로 전송함을 알 수 있습니다.
-                                echo "<td><a href='/wordpress/board/jqueryPlugin/view.php?jqueryPluginID=";
-                                echo "{$memberInfo['jqueryPluginID']}'>";
+                                // $sortID 의 값을 GET 방식으로 전송함을 알 수 있습니다.
+                                echo "<td><a href='/wordpress/board/boardQuery/view.php?boardID=";
+                                echo "{$memberInfo[$sortID]}&sort={$sort}'>";
                                 echo $memberInfo['title'];
                                 echo "</a></td>";
                                 echo "<td>{$memberInfo['nickname']}</td>";
-                                // jqueryPlugin 테이블에는 게시글을 작성한 시간이 타임스탬프로 되어 있으므로 이 값을 보기 쉽게
+                                // $sort 테이블에는 게시글을 작성한 시간이 타임스탬프로 되어 있으므로 이 값을 보기 쉽게
                                 // yyyy-mm-dd hh:mm:ss 형태로 변환합니다.
                                 echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";
                                 echo "</tr>";
@@ -99,17 +105,10 @@
             </table>
 
             <?php
-            if ($result) {
-                $dataCount = $result->num_rows;
-
-                if ($dataCount > 0) {
-                    // 다음 페이지로 이동하는 링크가 있는 파일을 include 합니다.
-                    // 검색 기능이 있는 파일을 include 합니다.
-                    include '../jqueryPlugin/nextPageLink.php';
-                    include '../jqueryPlugin/searchForm.php';
-
-                }
-            }
+                // 다음 페이지로 이동하는 링크가 있는 파일을 include 합니다.
+                // 검색 기능이 있는 파일을 include 합니다.
+                include 'nextPageLink.php';
+                include 'searchForm.php';
             ?>
         </div>
     </div>

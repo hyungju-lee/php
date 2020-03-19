@@ -25,9 +25,9 @@
         $result = $dbConnect->query($sql);
 
         if ($result) {
-            echo "{$i}번째 데이터 입력완료";
+            echo "{$i}번째 html데이터 입력완료";
         } else {
-            echo "{$i}번째 데이터 입력실패";
+            echo "{$i}번째 html데이터 입력실패";
         }
     }
 ?>

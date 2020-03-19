@@ -9,14 +9,17 @@
     include '../../common/session.php';
     // 로그인을 하지 않은 상태에서 메인페이지로 이동하는 기능을 하는 파일인 179-checkSignSession.php 파일을 include 합니다.
     include '../../common/checkSignSession.php';
+
+    $sort = $_GET['sort'];
+    $sortID = $sort.'ID';
 ?>
 
 <!DOCTYPE HTML>
 <html lang="ko-KR">
 <?php
-$title = '게시판글작성';
-$root = '../..';
-include "../../include/head.php";
+    $title = '게시판글작성';
+    $root = '../..';
+    include "../../include/head.php";
 ?>
 <body>
 <div id="wrap">
@@ -25,7 +28,9 @@ include "../../include/head.php";
     ?>
     <div id="container">
         <div id="contents">
-            <form name="cssWrite" method="post" action="savecss.php">
+            <?php
+                echo "<form name='boardWrite' method='post' action='saveboard.php?sort={$sort}'>";
+            ?>
                 제목
                 <br><br>
                 <input type="text" name="title" required>

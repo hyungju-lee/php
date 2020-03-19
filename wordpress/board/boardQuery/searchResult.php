@@ -4,6 +4,9 @@
     include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
 
+    $sort = $_GET['sort'];
+    $sortID = $sort.'ID';
+
     // 검색폼에서 전달받은 데이터를 변수에 대입합니다.
     $searchKeyword = $dbConnect->real_escape_string($_POST['searchKeyword']);
     $searchOption = $dbConnect->real_escape_string($_POST['option']);
@@ -28,7 +31,7 @@
     }
 
     // 게시물을 불러오는 쿼리문이며 WHERE 문은 포함되지 않았습니다.
-    $sql = "SELECT b.javascriptID, b.title, m.nickname, b.regTime FROM javascript b ";
+    $sql = "SELECT b.{$sortID}, b.title, m.nickname, b.regTime FROM {$sort} b ";
     $sql .= "JOIN member m ON (b.memberID = m.memberID)";
 
     // 검색 옵션값에 따른 쿼리문의 WHERE 문입니다.
@@ -58,7 +61,6 @@
         echo "오류 발생 - 관리자 문의";
         exit;
     }
-
 ?>
 <!DOCTYPE HTML>
 <html lang="ko-KR">
@@ -86,12 +88,13 @@ include "../../include/head.php";
                 </thead>
                 <tbody>
                 <?php
+                $memberInfo = array();
                 if ($dataCount > 0) {
                     for ($i=0; $i<$dataCount; $i++) {
                         $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                         echo "<tr>";
-                        echo "<td>".$memberInfo['javascriptID']."</td>";
-                        echo "<td><a href='./view.php?javascriptID={$memberInfo['javascriptID']}'>";
+                        echo "<td>".$memberInfo[$sortID]."</td>";
+                        echo "<td><a href='./view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
                         echo "{$memberInfo['title']}</a></td>";
                         echo "<td>".$memberInfo['nickname']."</td>";
                         echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";

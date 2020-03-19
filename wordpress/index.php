@@ -39,7 +39,7 @@
             <ul class="page_list">
         <?php
             while ($row = mysqli_fetch_row($result)) {
-                echo "<li class='page_list_item'><a href='board/{$row[0]}/list.php' class='page_link'>{$row[0]}</a></li>";
+                echo "<li class='page_list_item'><a href='board/boardQuery/list.php?sort={$row[0]}' class='page_link'>{$row[0]}</a></li>";
             }
         ?>
             </ul>
