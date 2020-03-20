@@ -8,8 +8,10 @@
     $sortID = $sort.'ID';
 
     // 검색폼에서 전달받은 데이터를 변수에 대입합니다.
+    $beforeKeyword = $dbConnect->real_escape_string($_POST['beforeKeyword']);
     $searchKeyword = $dbConnect->real_escape_string($_POST['searchKeyword']);
     $searchOption = $dbConnect->real_escape_string($_POST['option']);
+    $searchOption2 = $dbConnect->real_escape_string($_POST['resultSearch']);
 
     // 검색어의 공백 여부를 확인합니다.
     if ($searchKeyword == '' || $searchKeyword == null) {
@@ -26,6 +28,17 @@
             break;
         default :
             echo "제목 / 내용 / 제목과 내용 / 제목 또는 내용 설정을 안했습니다.";
+            exit;
+            break;
+    }
+
+    // 검색 옵션이 올바른 값인지 확인합니다.
+    switch ($searchOption2) {
+        case 'tsrch':
+        case 'rsrch':
+            break;
+        default :
+            echo "전체검색 / 결과 내 재검색 설정을 안했습니다.";
             exit;
             break;
     }
@@ -51,6 +64,17 @@
             $sql .= "WHERE b.title LIKE '%{$searchKeyword}%'";
             $sql .= " OR ";
             $sql .= "b.content LIKE '%{$searchKeyword}%'";
+            break;
+    }
+
+    switch ($searchOption2) {
+        case 'tsrch':
+            break;
+        case 'rsrch':
+            $sql .= " OR ";
+            $sql .= "b.title LIKE '%{$beforeKeyword}%'";
+            $sql .= " OR ";
+            $sql .= "b.content LIKE '%{$beforeKeyword}%'";
             break;
     }
 
