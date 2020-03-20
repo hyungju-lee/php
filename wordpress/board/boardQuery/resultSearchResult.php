@@ -8,10 +8,8 @@
     $sortID = $sort.'ID';
 
     // 검색폼에서 전달받은 데이터를 변수에 대입합니다.
-    $beforeKeyword = $dbConnect->real_escape_string($_POST['beforeKeyword']);
+    $beforeKeyword = $dbConnect->real_escape_string($_GET['beforeKeyword']);
     $searchKeyword = $dbConnect->real_escape_string($_POST['searchKeyword']);
-    $searchOption = $dbConnect->real_escape_string($_POST['option']);
-    $searchOption2 = $dbConnect->real_escape_string($_POST['resultSearch']);
 
     // 검색어의 공백 여부를 확인합니다.
     if ($searchKeyword == '' || $searchKeyword == null) {
@@ -19,64 +17,11 @@
         exit;
     }
 
-    // 검색 옵션이 올바른 값인지 확인합니다.
-    switch ($searchOption) {
-        case 'title':
-        case 'content':
-        case 'tandc':
-        case 'torc':
-            break;
-        default :
-            echo "제목 / 내용 / 제목과 내용 / 제목 또는 내용 설정을 안했습니다.";
-            exit;
-            break;
-    }
-
-    // 검색 옵션이 올바른 값인지 확인합니다.
-    switch ($searchOption2) {
-        case 'tsrch':
-        case 'rsrch':
-            break;
-        default :
-            echo "전체검색 / 결과 내 재검색 설정을 안했습니다.";
-            exit;
-            break;
-    }
-
     // 게시물을 불러오는 쿼리문이며 WHERE 문은 포함되지 않았습니다.
+
     $sql = "SELECT b.{$sortID}, b.title, m.nickname, b.regTime FROM {$sort} b ";
     $sql .= "JOIN member m ON (b.memberID = m.memberID)";
-
-    // 검색 옵션값에 따른 쿼리문의 WHERE 문입니다.
-    switch ($searchOption) {
-        case 'title':
-            $sql .= "WHERE b.title LIKE '%{$searchKeyword}%'";
-            break;
-        case 'content':
-            $sql .= "WHERE b.content LIKE '%{$searchKeyword}%'";
-            break;
-        case 'tandc':
-            $sql .= "WHERE b.title LIKE '%{$searchKeyword}%'";
-            $sql .= " AND ";
-            $sql .= "b.content LIKE '%{$searchKeyword}%'";
-            break;
-        case 'torc';
-            $sql .= "WHERE b.title LIKE '%{$searchKeyword}%'";
-            $sql .= " OR ";
-            $sql .= "b.content LIKE '%{$searchKeyword}%'";
-            break;
-    }
-
-    switch ($searchOption2) {
-        case 'tsrch':
-            break;
-        case 'rsrch':
-            $sql .= " OR ";
-            $sql .= "b.title LIKE '%{$beforeKeyword}%'";
-            $sql .= " OR ";
-            $sql .= "b.content LIKE '%{$beforeKeyword}%'";
-            break;
-    }
+    $sql .= "WHERE (title LIKE '%{$beforeKeyword}%' OR content LIKE '%{$beforeKeyword}%') AND (title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
 
     $result = $dbConnect->query($sql);
     if ($result) {
