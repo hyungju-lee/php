@@ -1,5 +1,9 @@
 <?php
     date_default_timezone_set('Asia/Seoul');
+
+    header('Cache-Control: no cache');
+    session_cache_limiter('private_no_expire');
+
     include '../../common/session.php';
     include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
@@ -12,7 +16,7 @@
     $searchKeyword = $dbConnect->real_escape_string($_POST['searchKeyword']);
 
     // 검색어의 공백 여부를 확인합니다.
-    if ($searchKeyword == '' || $searchKeyword == null) {
+    if ($searchKeyword == '' || $searchKeyword == null || $beforeKeyword == '' || $beforeKeyword == null) {
         echo "검색어가 없습니다.";
         exit;
     }
@@ -39,13 +43,13 @@ $root = '../..';
 include "../../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
     $root = '../..';
     include "../../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
+    <div class="container">
+        <div class="contents">
             <a href="./writeForm.php">글작성하기</a>
             <a href="../../signIn/signOut.php">로그아웃</a>
             <table>
@@ -76,7 +80,6 @@ include "../../include/head.php";
                 </tbody>
             </table>
             <?php
-            include 'resultSearchForm.php';
             echo "<a href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
             ?>
         </div>

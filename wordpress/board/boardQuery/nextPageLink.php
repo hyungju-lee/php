@@ -25,69 +25,73 @@
     $result = $dbConnect->query($sql);
 
     if (!$result) {
-        echo "등록된 게시글이 없습니다.";
-        exit;
-    }
+        echo "오류";
+    } else {
+        // 쿼리문의 데이터를 변수 $sortTotalCount 에 대입합니다.
+        $boardTotalCount = $result->fetch_array(MYSQLI_ASSOC);
+        // 변수 $sortTotalCount 의 레코드 수 정보를 변수 $sortTotalCount 에 다시 대입합니다.
+        $boardTotalCount = $boardTotalCount['count('.$sortID.')'];
 
-    // 쿼리문의 데이터를 변수 $sortTotalCount 에 대입합니다.
-    $boardTotalCount = $result->fetch_array(MYSQLI_ASSOC);
-    // 변수 $sortTotalCount 의 레코드 수 정보를 변수 $sortTotalCount 에 다시 대입합니다.
-    $boardTotalCount = $boardTotalCount['count('.$sortID.')'];
+        // 총 페이지 수
+        // 총 페이지 수를 구합니다. 변수 numView 는 183-list.php 의 30라인에 선언되어 있습니다.
+        // ceil() 함수는 올림을 하는 함수이며, 변수 newView 의 값인 20으로 페이지를 구성할 때 남는 게시물을 표시하기 위해
+        // 반올림이나, 버림 처리를 하지 않고 올림 처리를 합니다.
+        $totalPage = ceil($boardTotalCount / $numView);
 
-    // 총 페이지 수
-    // 총 페이지 수를 구합니다. 변수 numView 는 183-list.php 의 30라인에 선언되어 있습니다.
-    // ceil() 함수는 올림을 하는 함수이며, 변수 newView 의 값인 20으로 페이지를 구성할 때 남는 게시물을 표시하기 위해
-    // 반올림이나, 버림 처리를 하지 않고 올림 처리를 합니다.
-    $totalPage = ceil($boardTotalCount / $numView);
+        echo "<nav class='page navigation'>";
+        echo "<ul class='text-center'>";
+        // 처음 페이지 이동 링크
+        // 처음 페이지로 이동하는 링크입니다.
+        // $_GET 방식을 사용하여 page 의 값을 1로 적용합니다.
+        echo "<li class='page-item d-inline-block'><a class='page-link' href='./list.php?page=1&sort={$sort}'>처음</a></li>";
 
-    // 처음 페이지 이동 링크
-    // 처음 페이지로 이동하는 링크입니다.
-    // $_GET 방식을 사용하여 page 의 값을 1로 적용합니다.
-    echo "<a href='./list.php?page=1&sort={$sort}'>처음</a>&nbsp;";
-
-    // 이전 페이지 이동 링크
-    if ($page != 1) {
-        $previousPage = $page -1;
-        echo "<a href='list.php?page={$previousPage}&sort={$sort}'>이전</a>";
-    }
-
-    // 현재 페이지 앞 뒤 페이지 수 표시
-    // 현재 페이지를 기준으로 앞 뒤로 5개의 페이지까지 표시합니다.
-    // 모든 페이지를 표시하면 가로로 많은 양의 페이지가 표시되는 현상을 방지하기 위함입닏.
-    // 예를 들어, 현재 페이작 8페이지이면 페이지를 처음 시작하는 수는 3이됩니다.
-    $pageTerm = 5;
-
-    // 처음 표시할 페이지를 현재 페이지를 기준으로 5개 이전까지만 표시
-    $startPage = $page - $pageTerm;
-    // 음수일 경우 처리
-    if ($startPage < 1) {
-        $startPage = 1;
-    }
-
-    // 마지막 표시할 페이지를 현재 페이지를 기준으로 5개 이후까지만 표시
-    $lastPage = $page + $pageTerm;
-
-    // 마지막 페이지의 수보다 클 경우 처리
-    if ($lastPage >= $totalPage) {
-        $lastPage = $totalPage;
-    }
-
-    for ($i=$startPage; $i<=$lastPage; $i++) {
-        $nowPageColor = 'unset';
-        if ($i == $page) {
-            $nowPageColor = 'hotpink';
+        // 이전 페이지 이동 링크
+        if ($page != 1) {
+            $previousPage = $page -1;
+            echo "<li class='page-item d-inline-block'><a class='page-link' href='list.php?page={$previousPage}&sort={$sort}'>이전</a></li>";
         }
-        echo "&nbsp;<a href='./list.php?page={$i}&sort={$sort}'";
-        echo "style='color:{$nowPageColor}'>{$i}</a>&nbsp;";
+
+        // 현재 페이지 앞 뒤 페이지 수 표시
+        // 현재 페이지를 기준으로 앞 뒤로 5개의 페이지까지 표시합니다.
+        // 모든 페이지를 표시하면 가로로 많은 양의 페이지가 표시되는 현상을 방지하기 위함입닏.
+        // 예를 들어, 현재 페이작 8페이지이면 페이지를 처음 시작하는 수는 3이됩니다.
+        $pageTerm = 5;
+
+        // 처음 표시할 페이지를 현재 페이지를 기준으로 5개 이전까지만 표시
+        $startPage = $page - $pageTerm;
+        // 음수일 경우 처리
+        if ($startPage < 1) {
+            $startPage = 1;
+        }
+
+        // 마지막 표시할 페이지를 현재 페이지를 기준으로 5개 이후까지만 표시
+        $lastPage = $page + $pageTerm;
+
+        // 마지막 페이지의 수보다 클 경우 처리
+        if ($lastPage >= $totalPage) {
+            $lastPage = $totalPage;
+        }
+
+        for ($i=$startPage; $i<=$lastPage; $i++) {
+            $nowPageColor = 'unset';
+            if ($i == $page) {
+                $nowPageColor = 'hotpink';
+            }
+            echo "<li class='page-item d-inline-block active'><a class='page-link' href='./list.php?page={$i}&sort={$sort}'>{$i}</a></li>";
+        }
+
+        // 다음 페이지 이동 링크
+        if ($page != $totalPage) {
+            $nextPage = $page + 1;
+            echo "<li class='page-item d-inline-block'><a class='page-link' href='./list.php?page={$nextPage}&sort={$sort}'>다음</a></li>";
+        }
+
+        // 마지막 페이지 이동 링크
+        echo "<li class='page-item d-inline-block'><a class='page-link' href='list.php?page={$totalPage}&sort={$sort}'>끝</a></li>";
+        echo "</ul>";
+        echo "</nav>";
     }
 
-    // 다음 페이지 이동 링크
-    if ($page != $totalPage) {
-        $nextPage = $page + 1;
-        echo "<a href='./list.php?page={$nextPage}&sort={$sort}'>다음</a>";
-    }
 
-    // 마지막 페이지 이동 링크
-    echo "&nbsp;<a href='list.php?page={$totalPage}&sort={$sort}'>끝</a>";
 ?>
 

@@ -9,24 +9,26 @@
     include "../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
         $root = '..';
         include "../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
-            <h1>로그인</h1>
-            <form name="signIn" method="post" action="./signInProcessing.php">
-                이메일 <br>
-                <input type="email" name="userEmail" required>
-                <br><br>
-                비밀번호 <br>
-                <input type="password" name="userPw" required>
-                <br>
-                <br>
-                <input type="submit" value="로그인">
-            </form>
+    <div class="container">
+        <div class="contents center">
+            <div class="login-form">
+                <form name="signIn" method="post" action="./signInProcessing.php">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input id="exampleInputEmail1" class="form-control" type="email" name="userEmail" required aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input id="exampleInputPassword1" class="form-control" type="password" name="userPw" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark">로그인</button>
+                </form>
+            </div>
         </div>
     </div>
     <?php

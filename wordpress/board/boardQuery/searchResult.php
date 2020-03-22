@@ -1,5 +1,9 @@
 <?php
     date_default_timezone_set('Asia/Seoul');
+
+    header('Cache-Control: no cache');
+    session_cache_limiter('private_no_expire');
+
     include '../../common/session.php';
     include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
@@ -73,13 +77,13 @@ $root = '../..';
 include "../../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
     $root = '../..';
     include "../../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
+    <div class="container">
+        <div class="contents">
             <a href="./writeForm.php">글작성하기</a>
             <a href="../../signIn/signOut.php">로그아웃</a>
             <table>

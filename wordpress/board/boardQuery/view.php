@@ -24,13 +24,13 @@ $root = '../..';
 include "../../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
     $root = '../..';
     include "../../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
+    <div class="container">
+        <div class="contents">
             <?php
             $memberID = $_SESSION['memberID'];
 

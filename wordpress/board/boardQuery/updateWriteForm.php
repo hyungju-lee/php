@@ -35,12 +35,12 @@
     include "../../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
     include "../../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
+    <div class="container">
+        <div class="contents">
             <?php
                 echo "<form name='boardWrite' method='post' action='update.php?sort={$sort}&sortID={$sortPK}'>";
             ?>

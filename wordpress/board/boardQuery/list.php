@@ -27,28 +27,29 @@
     include "../../include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
     $root = '../..';
     include "../../include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
-            <?php
-            echo "<a href='writeForm.php?sort={$sort}'>글작성하기</a>";
-            ?>
-            <a href="../../signIn/signOut.php">로그아웃</a>
+    <div class="container">
+        <div class="contents">
+            <div class="btn-area text-right">
+                <a class="btn btn-dark" href="../../index.php">메인페이지가기</a>
+                <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
+            </div>
+            <div class="btn-area mb-4">
+                <?php
+                echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글작성하기</a>";
+                ?>
+                <?php
+                include 'searchForm.php';
+                ?>
+            </div>
             <?php
             echo "<h2 class='list_h2'>{$sort}</h2>";
             ?>
-            <table>
-                <thead>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>게시일</th>
-                </thead>
-                <tbody>
+            <ul class="page_list">
                 <?php
                     // 게시물 목록 페이지에는 한 페이지에 20개의 게시물 데이터를 출력합니다.
                     // 그러므로 책의 쪽수 정보를 $_GET 방식으로 데이터를 전달합니다.
@@ -74,6 +75,8 @@
                     $sql .= "DESC LIMIT {$firstLimitValue}, {$numView}";
                     $result = $dbConnect->query($sql);
 
+//                SELECT DISTINCT memberID FROM `jqueryplugin`
+
                     // 불러온 데이터의 수만큼 table 태그의 tr 태그와 td 태그를 출력합니다.
                     if ($result) {
                         $dataCount = $result->num_rows;
@@ -81,36 +84,40 @@
                         if ($dataCount > 0) {
                             for ($i=0; $i<$dataCount; $i++) {
                                 $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
-                                echo "<tr>";
-                                echo "<td>".$memberInfo[$sortID]."</td>";
+                                echo "<li class='page_list_item'>";
+                                echo "<a class='page_link d-flex justify-content-between' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
+                                echo "<span><em class='em mr-4'>[title ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
+                                echo "<strong><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
+                                echo "</a>";
+                                echo "</li>";
+
+//                                echo "<tr>";
+//                                echo "<td scope='row'>".$memberInfo[$sortID]."</td>";
                                 // 제목을 누르면 해당 게시물의 내용을 볼 수 있는 페이지로 이동해야 하므로
                                 // a 링크를 사용하여 주소를 지정합니다.
                                 // $sortID 의 값을 GET 방식으로 전송함을 알 수 있습니다.
-                                echo "<td><a href='/wordpress/board/boardQuery/view.php?boardID=";
-                                echo "{$memberInfo[$sortID]}&sort={$sort}'>";
-                                echo $memberInfo['title'];
-                                echo "</a></td>";
-                                echo "<td>{$memberInfo['nickname']}</td>";
+//                                echo "<td><a href='/wordpress/board/boardQuery/view.php?boardID=";
+//                                echo "{$memberInfo[$sortID]}&sort={$sort}'>";
+//                                echo $memberInfo['title'];
+//                                echo "</a></td>";
+//                                echo "<td>{$memberInfo['nickname']}</td>";
                                 // $sort 테이블에는 게시글을 작성한 시간이 타임스탬프로 되어 있으므로 이 값을 보기 쉽게
                                 // yyyy-mm-dd hh:mm:ss 형태로 변환합니다.
-                                echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";
-                                echo "</tr>";
+//                                echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";
+//                                echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='4'>게시글이 없습니다.</td></tr>";
+                            echo "<li class='page_list_item'><a href='#' class='page_link'>게시글이 없습니다.</a></li>";
                         }
                     }
                 ?>
-                </tbody>
-            </table>
+            </ul>
 
             <?php
                 // 다음 페이지로 이동하는 링크가 있는 파일을 include 합니다.
                 // 검색 기능이 있는 파일을 include 합니다.
                 include 'nextPageLink.php';
-                include 'searchForm.php';
             ?>
-            <a href="../../index.php">메인페이지가기</a>
         </div>
     </div>
     <?php

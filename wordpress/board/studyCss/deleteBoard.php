@@ -2,7 +2,7 @@
     date_default_timezone_set('Asia/Seoul');
     include '../../connection/connection.php';
 
-    $sql = "DROP TABLE jqueryPlugin";
+    $sql = "DROP TABLE studyCss";
 
     $res = $dbConnect->query($sql);
 

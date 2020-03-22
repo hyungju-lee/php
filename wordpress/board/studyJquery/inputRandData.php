@@ -20,7 +20,7 @@
         // jquery 테이블에 입력할 쿼리문입니다.
         // 제목에는 변수 i의 값을 사용하여 몇 번째 제목이라는 문구가 입력되며
         // 내용에는 변수 i의 값을 사용하여 몇 번째 내용이라는 문구가 입력됩니다.
-        $sql = "INSERT INTO jquery (memberID, title, content, regTime)";
+        $sql = "INSERT INTO studyJquery (memberID, title, content, regTime)";
         $sql .= "VALUES (1, '{$i}번째 제목', '{$i}번째 내용', {$time})";
         $result = $dbConnect->query($sql);
 

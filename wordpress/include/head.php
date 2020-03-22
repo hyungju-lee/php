@@ -8,6 +8,6 @@
     echo "<link href='https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css' rel='stylesheet'>";
     echo "<link rel='stylesheet' href='{$root}/css/reset.css'/>";
     echo "<link rel='stylesheet' href='{$root}/css/font.css'/>";
-    echo "<link rel='stylesheet' href='{$root}/css/main_style.css'/>";
+    echo "<link rel='stylesheet' href='{$root}/css/custom.css'/>";
     echo "</head>";
 ?>

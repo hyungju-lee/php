@@ -2,13 +2,13 @@
     date_default_timezone_set('Asia/Seoul');
     include '../../connection/connection.php';
 
-    $sql = "CREATE TABLE css (";
-    $sql .= "cssID int(10) unsigned NOT NULL AUTO_INCREMENT,";
+    $sql = "CREATE TABLE studyJquery (";
+    $sql .= "studyJqueryID int(10) unsigned NOT NULL AUTO_INCREMENT,";
     $sql .= "memberID int(10) unsigned NOT NULL,";
     $sql .= "title varchar(50) NOT NULL,";
     $sql .= "content longtext NOT NULL,";
     $sql .= "regTime int(10) unsigned NOT NULL,";
-    $sql .= "PRIMARY KEY (cssID)";
+    $sql .= "PRIMARY KEY (studyJqueryID)";
     $sql .= ") CHARSET = utf8;";
     
     $res = $dbConnect->query($sql);

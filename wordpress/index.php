@@ -12,26 +12,33 @@
     include "include/head.php";
 ?>
 <body>
-<div id="wrap">
+<div class="wrap">
     <?php
         $root = '.';
         include "include/header.php";
     ?>
-    <div id="container">
-        <div id="contents">
+    <div class="container">
+
         <?php
             if (!isset($_SESSION['memberID'])) {
         ?>
-            <a href="signUp/signUpForm.php">회원가입</a>
-            <br>
-            <a href="signIn/signInForm.php">로그인</a>
+            <div class="contents center">
+                <div class="signUp_login">
+                    <a class="btn" href="signUp/signUpForm.php">회원가입</a>
+                    <a class="btn ml-2" href="signIn/signInForm.php">로그인</a>
+                </div>
+            </div>
         <?php
             } else {
         ?>
-            <h2 class='list_h2'>Subject</h2>
+        <div class="contents">
+            <div class="btn-area text-right">
+                <a class="btn btn-dark d-inline-block" href="signIn/signOut.php">로그아웃</a>
+            </div>
+            <h2 class='list_h2 mt-4'>Study</h2>
         <?php
 
-                $sql = "SHOW TABLES WHERE `Tables_In_hyungju12` NOT LIKE 'member'";
+                $sql = "SHOW TABLES WHERE `Tables_In_hyungju12` LIKE '%study%'";
                 $result = $dbConnect->query($sql);
 
                 if ($result) {
@@ -43,15 +50,16 @@
             }
         ?>
             </ul>
+            <h2 class='list_h2'>Outputs</h2>
         <?php
                 }
         ?>
-            <a href="signIn/signOut.php">로그아웃</a>
+
+        </div>
         <?php
             }
         ?>
 
-        </div>
     </div>
     <?php
         include "include/footer.php";
