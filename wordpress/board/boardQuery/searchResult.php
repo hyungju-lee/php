@@ -117,9 +117,9 @@ include "../../include/head.php";
                 for ($i=0; $i<$dataCount; $i++) {
                     $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                     echo "<li class='page_list_item'>";
-                    echo "<a class='page_link d-flex justify-content-between' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
-                    echo "<span><em class='em mr-4'>[title ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
-                    echo "<strong><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
+                    echo "<a class='page_link float-area' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
+                    echo "<span class='float-left'><em class='em mr-4'>[title ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
+                    echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                     echo "</a>";
                     echo "</li>";
                 }

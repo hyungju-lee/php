@@ -70,22 +70,20 @@ include "../../include/head.php";
     $root = '../..';
     include "../../include/header.php";
     ?>
-    <div class="container">
-        <div class="contents center">
-            <?php
-            if ($result) {
-                echo "<div class='save'>";
-                echo "<em class='d-block mb-3'>저장 완료</em>";
-                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
-                echo "</div>";
-            } else {
-                echo "<div class='save'>";
-                echo "<em class='d-block mb-3'>저장 실패 - 관리자에게 문의</em>";
-                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
-                echo "</div>";
-            }
-            ?>
-        </div>
+    <div class="container center">
+        <?php
+        if ($result) {
+            echo "<div class='save'>";
+            echo "<em class='d-block mb-3'>저장 완료</em>";
+            echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+            echo "</div>";
+        } else {
+            echo "<div class='save'>";
+            echo "<em class='d-block mb-3'>저장 실패 - 관리자에게 문의</em>";
+            echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+            echo "</div>";
+        }
+        ?>
     </div>
     <?php
     include "../../include/footer.php";

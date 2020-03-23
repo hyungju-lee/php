@@ -99,7 +99,7 @@
                                 echo "<li class='page_list_item'>";
                                 echo "<a class='page_link float-area' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
                                 echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
-                                echo "<strong class='float-right'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
+                                echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                                 echo "</a>";
                                 echo "</li>";
 

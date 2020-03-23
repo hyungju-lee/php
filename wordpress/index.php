@@ -46,7 +46,8 @@
             <ul class="page_list">
                 <?php
                 while ($row = mysqli_fetch_row($result)) {
-                    echo "<li class='page_list_item'><a href='board/boardQuery/list.php?sort={$row[0]}' class='page_link'>{$row[0]}</a></li>";
+                    $pageTitle = str_replace('study','',$row[0]);
+                    echo "<li class='page_list_item'><a href='board/boardQuery/list.php?sort={$row[0]}' class='page_link'>{$pageTitle}</a></li>";
                 }
                 ?>
             </ul>

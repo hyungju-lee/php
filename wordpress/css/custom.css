@@ -16,6 +16,7 @@ html,body,.wrap{height: 100%;}
 .list_h3{padding:10px;font-size:16px}
 .page_list{margin-bottom:35px;}
 .page_list_item{position:relative;padding-left:15px;border-bottom:1px solid #dfdfdf;color: #767676;}
+.page_list_item:hover{background-color:#eaeaea;}
 .page_list_item:before{position:absolute;top:16px;left:5px;width:3px;height:3px;border-radius:50%;background-color:#333;content:''}
 .page_link{display: block; padding: 8px 20px 8px 0; font-size: 12px; text-decoration: none;}
 .login-form,.singUp-form,.save{padding:20px;box-shadow:0 1px 2px 1px rgba(0,0,0,0.4)}
