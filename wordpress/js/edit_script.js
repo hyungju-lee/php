@@ -41,7 +41,7 @@ $(document).ready(function() {
         blockquoteBreakingLevel: 2,
         fontSizeUnits: ['px', 'pt'],
         dialogsFade: true,  // Add fade effect on dialogs
-        tabDisable: false,
+        tabDisable: true,
         codeviewFilter: false,
         codeviewIframeFilter: true,
         spellCheck: true
