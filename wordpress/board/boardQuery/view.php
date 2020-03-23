@@ -44,27 +44,25 @@ include "../../include/head.php";
                 if ($result) {
                     $contentInfo = $result->fetch_array(MYSQLI_ASSOC);
                     $sortPK = $contentInfo[$sortID];
-
-                    echo "제목 : ".$contentInfo['title']."<br>";
-                    echo "작성자 : ".$contentInfo['nickname']."<br>";
                     $regData = date("Y-m-d h:i", $contentInfo['regTime']);
-                    echo "게시일 : {$regData}<br><br>";
-                    echo "내용 <br>";
-                    echo "<div class='click2edit'>".$contentInfo['content']."</div>";
 
+                    echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
+                    echo "<h3 class='board_tit'>".$contentInfo['title']."</h3>";
+                    echo "<div class='board_info'><span class='align-middle'>".$contentInfo['nickname']."</span><span class='stick'></span><span class='align-middle'>".$regData."</span></div>";
+                    echo "<div class='board_cont click2edit'>".$contentInfo['content']."</div>";
+
+                    echo "<div class='btn-area text-right mt-4'>";
                     if ($memberID == $contentInfo['memberID']) {
-
-                        echo "<a href='updateWriteForm.php?sort={$sort}&sortID={$sortPK}' class='btn btn-update'>수정</a>";
-
                         echo "<form class='del-form' action='' method='post'>";
                         echo "<input type='hidden' name='sortID' value='{$sortPK}'>";
                         echo "<input type='hidden' name='sort' value='{$sort}'>";
                         echo "</form>";
-
-                        echo "<button class='btn btn-primary btn-delete' type='submit' onclick='delete_ly()'>삭제</button>";
+                        echo "<a href='updateWriteForm.php?sort={$sort}&sortID={$sortPK}' class='btn btn-update btn-dark d-inline-block'>수정</a>";
+                        echo "<button class='btn btn-dark btn-delete d-inline-block ml-1' type='submit' onclick='delete_ly()'>삭제</button>";
                     }
 
-                    echo "<a href='list.php?sort={$sort}'>목록으로 이동</a>";
+                    echo "<a class='btn btn-dark d-inline-block ml-1' href='list.php?sort={$sort}'>목록으로 이동</a>";
+                    echo "</div>";
                 } else {
                     echo "잘못된 접근입니다.";
                     exit;
@@ -79,11 +77,14 @@ include "../../include/head.php";
     <?php
     include "../../include/footer.php";
     ?>
-
-    <div class="delete_ly" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%)">
-        <span>삭제하시겠습니까?</span>
-        <button class="btn-yes" type="button" onclick="yes('deleteRecord.php');">넵</button>
-        <button class="btn-no" type="button" onclick="no();">아뇨</button>
+    <div class="modal-del">
+        <div class="modal-cont">
+            <h3 class="h3">게시글을 삭제하시겠습니까?</h3>
+            <div class="btn-area mt-4">
+                <button class="btn btn-dark btn-yes" type="button" onclick="yes('deleteRecord.php');">확인</button>
+                <button class="btn btn-dark btn-no" type="button" onclick="no();">취소</button>
+            </div>
+        </div>
     </div>
 </div>
 <?php
@@ -101,7 +102,7 @@ include "../../include/script.php";
     // };
 
     function delete_ly() {
-        document.querySelector('.delete_ly').style.display = 'block';
+        document.querySelector('.modal-del').style.display = 'block';
     }
 
     function yes(url) {
@@ -110,7 +111,7 @@ include "../../include/script.php";
     }
 
     function no() {
-        document.querySelector('.delete_ly').style.display = 'none';
+        document.querySelector('.modal-del').style.display = 'none';
     }
 </script>
 </body>

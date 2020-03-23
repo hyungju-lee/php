@@ -42,22 +42,26 @@
     <div class="container">
         <div class="contents">
             <?php
-                echo "<form name='boardWrite' method='post' action='update.php?sort={$sort}&sortID={$sortPK}'>";
+            echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
+            echo "<form name='boardWrite' method='post' action='update.php?sort={$sort}&sortID={$sortPK}'>";
             ?>
-                제목
-                <br><br>
-            <?php
-                echo "<input type='text' name='title' value='{$boardTitle}' required>";
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <?php
+                echo "<input id='title' class='form-control' type='text' name='title' value='{$boardTitle}' required>";
             ?>
-                <br><br>
-                내용
-                <br><br>
-            <?php
-                echo "<textarea name='content' class='summernote' required>{$boardCont}</textarea>";
+                </div>
+
+                <div class="form-group">
+                    <label for="cont">내용</label>
+                    <?php
+                echo "<textarea id='cont' name='content' class='summernote' required>{$boardCont}</textarea>";
             ?>
-                <br><br>
-                <input type="submit" value="저장">
-                <button type="button" onclick="cancel();">취소</button>
+                </div>
+                <div class="btn-area">
+                    <button class="btn btn-dark" type="submit">저장</button>
+                    <button class="btn btn-dark" type="button" onclick="cancel();">취소</button>
+                </div>
             </form>
         </div>
     </div>

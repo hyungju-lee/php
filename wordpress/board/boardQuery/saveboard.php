@@ -55,13 +55,41 @@
     // 쿼리문을 실행합니다.
     $result = $dbConnect->query($sql);
 
-    if ($result) {
-        echo "저장 완료";
-        echo "<a href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
-        exit;
-    } else {
-        echo "저장 실패 - 관리자에게 문의";
-        echo "<a href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
-        exit;
-    }
+
 ?>
+<!DOCTYPE HTML>
+<html lang="ko-KR">
+<?php
+$title = '게시글 저장';
+$root = '../..';
+include "../../include/head.php";
+?>
+<body>
+<div class="wrap">
+    <?php
+    $root = '../..';
+    include "../../include/header.php";
+    ?>
+    <div class="container">
+        <div class="contents center">
+            <?php
+            if ($result) {
+                echo "<div class='save'>";
+                echo "<em class='d-block mb-3'>저장 완료</em>";
+                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+                echo "</div>";
+            } else {
+                echo "<div class='save'>";
+                echo "<em class='d-block mb-3'>저장 실패 - 관리자에게 문의</em>";
+                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+    <?php
+    include "../../include/footer.php";
+    ?>
+</div>
+</body>
+</html>

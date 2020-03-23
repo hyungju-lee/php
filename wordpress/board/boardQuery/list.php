@@ -41,15 +41,13 @@
             <div class="btn-area mb-4">
                 <?php
                 echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글작성하기</a>";
-                ?>
-                <?php
                 include 'searchForm.php';
                 ?>
             </div>
             <?php
-            echo "<h2 class='list_h2'>{$sort}</h2>";
+            echo "<h2 class='list_h2'>{$sort} 게시판</h2>";
             ?>
-            <ul class="page_list">
+
                 <?php
                     // 게시물 목록 페이지에는 한 페이지에 20개의 게시물 데이터를 출력합니다.
                     // 그러므로 책의 쪽수 정보를 $_GET 방식으로 데이터를 전달합니다.
@@ -82,6 +80,7 @@
                         $dataCount = $result->num_rows;
 
                         if ($dataCount > 0) {
+                            echo "<ul class='page_list'>";
                             for ($i=0; $i<$dataCount; $i++) {
                                 $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                                 echo "<li class='page_list_item'>";
@@ -106,12 +105,13 @@
 //                                echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";
 //                                echo "</tr>";
                             }
+                            echo "</ul>";
                         } else {
-                            echo "<li class='page_list_item'><a href='#' class='page_link'>게시글이 없습니다.</a></li>";
+                            echo "<p class='note'>게시글이 없습니다.</p>";
                         }
                     }
                 ?>
-            </ul>
+
 
             <?php
                 // 다음 페이지로 이동하는 링크가 있는 파일을 include 합니다.

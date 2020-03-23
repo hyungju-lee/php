@@ -18,9 +18,18 @@ html,body,.wrap{height: 100%;}
 .page_list_item{position:relative;padding-left:15px;border-bottom:1px solid #dfdfdf;color: #767676;}
 .page_list_item:before{position:absolute;top:16px;left:5px;width:3px;height:3px;border-radius:50%;background-color:#333;content:''}
 .page_link{display: block; padding: 8px 20px 8px 0; font-size: 12px; text-decoration: none;}
-.signUp_login,.login-form,.singUp-form{padding:20px;box-shadow:0 1px 2px 1px rgba(0,0,0,0.4)}
+.signUp_login,.login-form,.singUp-form,.save{padding:20px;box-shadow:0 1px 2px 1px rgba(0,0,0,0.4)}
 .singUp-form{width: 300px}
 .page-link{color: #222}
 .page-link:hover{color: #222}
 .page-item.active .page-link{background-color: #222;border-color:#222;}
 .em{font-weight: 700; color: #bb0513}
+.note {padding: 20px}
+.board_subject {padding: 10px 0;border-bottom:2px solid #222;font-weight: 700;}
+.board_tit {padding: 10px;border-bottom: 1px solid #ddd; background-color: rgba(221, 221, 221, 0.28)}
+.board_info {padding: 10px;border-bottom: 1px solid #ddd;}
+.stick{display:inline-block;width: 1px; height: 16px; margin:0 10px; background-color: #222; vertical-align: middle}
+.board_cont {padding: 20px;border-bottom: 1px solid #ddd;}
+.modal-del {display: none; position: fixed; top: 0; left: 0; right:0; bottom:0; background-color: rgba(0,0,0,0.4);}
+.modal-cont {position:absolute;top:50%;left:50%;padding:20px;box-shadow:0 1px 2px 1px rgba(0,0,0,0.4);background-color:#fff;transform: translate(-50%,-50%)}
+.modal-del .h3 {font-size: 16px;}

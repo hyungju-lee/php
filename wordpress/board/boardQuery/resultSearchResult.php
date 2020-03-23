@@ -50,38 +50,40 @@ include "../../include/head.php";
     ?>
     <div class="container">
         <div class="contents">
-            <a href="./writeForm.php">글작성하기</a>
-            <a href="../../signIn/signOut.php">로그아웃</a>
-            <table>
-                <thead>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>게시일</th>
-                </thead>
-                <tbody>
+            <div class="btn-area text-right">
+                <?php
+                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+                ?>
+                <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
+            </div>
+            <div class="btn-area mb-4">
+            <?php
+            echo "<a class='btn btn-dark align-top' href='./writeForm.php?sort={$sort}'>글작성하기</a>";
+            ?>
+            </div>
+            <?php
+            echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
+            ?>
+
                 <?php
                 $memberInfo = array();
                 if ($dataCount > 0) {
+                    echo "<ul class='page_list'>";
                     for ($i=0; $i<$dataCount; $i++) {
                         $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
-                        echo "<tr>";
-                        echo "<td>".$memberInfo[$sortID]."</td>";
-                        echo "<td><a href='./view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
-                        echo "{$memberInfo['title']}</a></td>";
-                        echo "<td>".$memberInfo['nickname']."</td>";
-                        echo "<td>".date('Y-m-d H:i', $memberInfo['regTime'])."</td>";
-                        echo "</tr>";
+                        echo "<li class='page_list_item'>";
+                        echo "<a class='page_link d-flex justify-content-between' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
+                        echo "<span><em class='em mr-4'>[title ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
+                        echo "<strong><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
+                        echo "</a>";
+                        echo "</li>";
                     }
+                    echo "</ul>";
                 } else {
-                    echo "<tr><td colspan='4'>{$searchKeyword}를 포함하는 게시글이 없습니다.</td></tr>";
+                    echo "<p class='note'>{$searchKeyword}를 포함하는 게시글이 없습니다.</p>";
                 }
                 ?>
-                </tbody>
-            </table>
-            <?php
-            echo "<a href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
-            ?>
+
         </div>
     </div>
     <?php
