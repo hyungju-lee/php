@@ -5,7 +5,7 @@
     session_cache_limiter('private_no_expire');
 
     include '../../common/session.php';
-    include '../../common/checkSignSession.php';
+//    include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
 
     $sort = $_GET['sort'];
@@ -52,13 +52,24 @@ include "../../include/head.php";
         <div class="contents">
             <div class="btn-area text-right">
                 <?php
-                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록으로 이동</a>";
+                echo "<a class='btn btn-dark' href='./list.php?sort={$sort}'>게시글 목록</a>";
+                if (!isset($_SESSION['memberID'])) {
+                    ?>
+                    <a class="btn btn-dark d-inline-block" href="../../signUp/signUpForm.php">회원가입</a>
+                    <a class="btn btn-dark d-inline-block" href="../../signIn/signInForm.php">로그인</a>
+                    <?php
+                } else {
+                    ?>
+                    <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
+                    <?php
+                }
                 ?>
-                <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
             </div>
-            <div class="btn-area mb-4">
+            <div class="btn-area mb-4 mt-4">
             <?php
-            echo "<a class='btn btn-dark align-top' href='./writeForm.php?sort={$sort}'>글작성하기</a>";
+            if (isset($_SESSION['memberID'])) {
+                echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글쓰기</a>";
+            }
             ?>
             </div>
             <?php

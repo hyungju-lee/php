@@ -9,7 +9,7 @@
 
     date_default_timezone_set('Asia/Seoul');
     include '../../common/session.php';
-    include '../../common/checkSignSession.php';
+//    include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
 
     $sort = $_GET['sort'];
@@ -32,7 +32,6 @@ include "../../include/head.php";
     <div class="container">
         <div class="contents">
             <?php
-            $memberID = $_SESSION['memberID'];
 
             if (isset($_GET['boardID']) && (int) $_GET['boardID'] > 0) {
                 $boardID = $_GET['boardID'];
@@ -52,13 +51,17 @@ include "../../include/head.php";
                     echo "<div class='board_cont click2edit'>".$contentInfo['content']."</div>";
 
                     echo "<div class='btn-area text-right mt-4'>";
-                    if ($memberID == $contentInfo['memberID']) {
-                        echo "<form class='del-form' action='' method='post'>";
-                        echo "<input type='hidden' name='sortID' value='{$sortPK}'>";
-                        echo "<input type='hidden' name='sort' value='{$sort}'>";
-                        echo "</form>";
-                        echo "<a href='updateWriteForm.php?sort={$sort}&sortID={$sortPK}' class='btn btn-update btn-dark d-inline-block'>수정</a>";
-                        echo "<button class='btn btn-dark btn-delete d-inline-block ml-1' type='submit' onclick='delete_ly()'>삭제</button>";
+
+                    if (isset($_SESSION['memberID'])) {
+                        $memberID = $_SESSION['memberID'];
+                        if ($memberID == $contentInfo['memberID']) {
+                            echo "<form class='del-form' action='' method='post'>";
+                            echo "<input type='hidden' name='sortID' value='{$sortPK}'>";
+                            echo "<input type='hidden' name='sort' value='{$sort}'>";
+                            echo "</form>";
+                            echo "<a href='updateWriteForm.php?sort={$sort}&sortID={$sortPK}' class='btn btn-update btn-dark d-inline-block'>수정</a>";
+                            echo "<button class='btn btn-dark btn-delete d-inline-block ml-1' type='submit' onclick='delete_ly()'>삭제</button>";
+                        }
                     }
 
                     echo "<a class='btn btn-dark d-inline-block ml-1' href='list.php?sort={$sort}'>목록으로 이동</a>";

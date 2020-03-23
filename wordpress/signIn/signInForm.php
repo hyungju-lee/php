@@ -14,21 +14,19 @@
         $root = '..';
         include "../include/header.php";
     ?>
-    <div class="container">
-        <div class="contents center">
-            <div class="login-form">
-                <form name="signIn" method="post" action="./signInProcessing.php">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input id="exampleInputEmail1" class="form-control" type="email" name="userEmail" required aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input id="exampleInputPassword1" class="form-control" type="password" name="userPw" required>
-                    </div>
-                    <button type="submit" class="btn btn-dark">로그인</button>
-                </form>
-            </div>
+    <div class="container center">
+        <div class="login-form">
+            <form name="signIn" method="post" action="./signInProcessing.php">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input id="exampleInputEmail1" class="form-control" type="email" name="userEmail" required aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input id="exampleInputPassword1" class="form-control" type="password" name="userPw" required>
+                </div>
+                <button type="submit" class="btn btn-dark">로그인</button>
+            </form>
         </div>
     </div>
     <?php

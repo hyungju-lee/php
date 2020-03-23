@@ -11,7 +11,7 @@
     // 171-session.php 파일을 include 합니다.
     include '../../common/session.php';
     // 비로그인 시에 접근할 수 없도록 179-checkSignSession.php 파일을 include 합니다.
-    include '../../common/checkSignSession.php';
+//    include '../../common/checkSignSession.php';
     // member 테이블과 $sort 테이블의 데이터를 가져오므로 163-connection.php 파일을 include 합니다.
     include '../../connection/connection.php';
 
@@ -35,12 +35,25 @@
     <div class="container">
         <div class="contents">
             <div class="btn-area text-right">
-                <a class="btn btn-dark" href="../../index.php">메인페이지가기</a>
-                <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
-            </div>
-            <div class="btn-area mb-4">
+                <a class="btn btn-dark" href="../../index.php">메인</a>
                 <?php
-                echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글작성하기</a>";
+                if (!isset($_SESSION['memberID'])) {
+                    ?>
+                    <a class="btn btn-dark d-inline-block" href="../../signUp/signUpForm.php">회원가입</a>
+                    <a class="btn btn-dark d-inline-block" href="../../signIn/signInForm.php">로그인</a>
+                    <?php
+                } else {
+                    ?>
+                    <a class="btn btn-dark d-inline-block" href="../../signIn/signOut.php">로그아웃</a>
+                    <?php
+                }
+                ?>
+            </div>
+            <div class="btn-area mb-4 mt-4">
+                <?php
+                if (isset($_SESSION['memberID'])) {
+                    echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글쓰기</a>";
+                }
                 include 'searchForm.php';
                 ?>
             </div>
@@ -84,9 +97,9 @@
                             for ($i=0; $i<$dataCount; $i++) {
                                 $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                                 echo "<li class='page_list_item'>";
-                                echo "<a class='page_link d-flex justify-content-between' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
-                                echo "<span><em class='em mr-4'>[title ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
-                                echo "<strong><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
+                                echo "<a class='page_link float-area' href='/wordpress/board/boardQuery/view.php?boardID={$memberInfo[$sortID]}&sort={$sort}'>";
+                                echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
+                                echo "<strong class='float-right'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                                 echo "</a>";
                                 echo "</li>";
 
