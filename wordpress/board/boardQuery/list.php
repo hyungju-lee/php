@@ -17,6 +17,12 @@
 
     $sort = $_GET['sort'];
     $sortID = $sort.'ID';
+
+    $sql = "SELECT b.{$sortID}, b.title, m.nickname, b.regTime FROM {$sort} b ";
+    $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+    $res = $dbConnect->query($sql);
+
+    $count = $res->num_rows;
 ?>
 
 <!DOCTYPE HTML>
@@ -54,7 +60,9 @@
                 if (isset($_SESSION['memberID'])) {
                     echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글쓰기</a>";
                 }
-                include 'searchForm.php';
+                if ($count > 0) {
+                    include 'searchForm.php';
+                }
                 ?>
             </div>
             <?php

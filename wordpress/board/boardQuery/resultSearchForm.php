@@ -3,7 +3,7 @@ echo "<form class='d-inline-block align-top' name='search' method='post' action=
 ?>
     <div class="d-flex">
         <div class="flex-default">
-            <input class="form-control" type="text" name="searchKeyword">
+            <input class="form-control" type="text" name="searchKeyword" required>
         </div>
         <!--    <select name="option" id="" required>-->
         <!--        <option value="title">제목</option>-->

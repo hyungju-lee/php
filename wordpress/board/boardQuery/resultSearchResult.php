@@ -73,6 +73,7 @@ include "../../include/head.php";
             ?>
             </div>
             <?php
+            echo "<p class='note'>다음은 제목 또는 내용에 '{$beforeKeyword}'와 '{$searchKeyword}'를(을) 포함하는 게시글입니다.</p>";
             echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
             ?>
 
@@ -91,7 +92,7 @@ include "../../include/head.php";
                     }
                     echo "</ul>";
                 } else {
-                    echo "<p class='note'>{$searchKeyword}를 포함하는 게시글이 없습니다.</p>";
+                    echo "<p class='note'>{$searchKeyword}를(을) 포함하는 게시글이 없습니다.</p>";
                 }
                 ?>
 

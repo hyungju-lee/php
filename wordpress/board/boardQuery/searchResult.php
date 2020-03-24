@@ -104,10 +104,13 @@ include "../../include/head.php";
                 if (isset($_SESSION['memberID'])) {
                     echo "<a class='btn btn-dark align-top' href='writeForm.php?sort={$sort}'>글쓰기</a>";
                 }
-                include 'resultSearchForm.php';
+                if ($dataCount > 0) {
+                    include 'resultSearchForm.php';
+                }
                 ?>
             </div>
             <?php
+            echo "<p class='note'>다음은 제목 또는 내용에 '{$searchKeyword}'를(을) 포함하는 게시글입니다.</p>";
             echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
             ?>
             <?php
@@ -125,7 +128,7 @@ include "../../include/head.php";
                 }
                 echo "</ul>";
             } else {
-                echo "<p class='note'>게시글이 없습니다.</p>";
+                echo "<p class='note'>'{$searchKeyword}'를(을) 포함하는 게시글이 없습니다.</p>";
             }
             ?>
 
