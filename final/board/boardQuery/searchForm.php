@@ -1,5 +1,5 @@
 <?php
-echo "<form class='d-inline-block align-top' name='search' method='get' action='list.php'>";
+echo "<form class='d-inline-block align-top' name='search' method='get' action='{$route}/list.php'>";
 ?>
     <div class="d-flex">
         <span class="flex-default">

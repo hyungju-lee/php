@@ -7,8 +7,8 @@
     foreach ($tableArray as $ta) {
         for ($i=1; $i<165; $i++) {
             $time = time();
-            $sql = "INSERT INTO {$ta} (memberID, title, content, regTime)";
-            $sql .= "VALUES (1, '{$i}번째 제목', '{$i}번째 내용', {$time})";
+            $sql = "INSERT INTO {$ta} (tableName, memberID, title, content, regTime)";
+            $sql .= "VALUES ('{$ta}', 1, '{$i}번째 제목', '{$i}번째 내용', {$time})";
             $result = $dbConnect->query($sql);
             if ($result) {
                 echo "{$i}번째 데이터 입력완료";

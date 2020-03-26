@@ -5,12 +5,13 @@
     foreach ($tableArray as $ta) {
         $taID = $ta.'ID';
         $sql = "CREATE TABLE {$ta} (";
-        $sql .= "{$taID} int(10) unsigned NOT NULL AUTO_INCREMENT,";
+        $sql .= "primaryKey int(10) unsigned NOT NULL AUTO_INCREMENT,";
+        $sql .= "tableName varchar(20) NOT NULL,";
         $sql .= "memberID int(10) unsigned NOT NULL,";
         $sql .= "title varchar(50) NOT NULL,";
         $sql .= "content longtext NOT NULL,";
         $sql .= "regTime int(10) unsigned NOT NULL,";
-        $sql .= "PRIMARY KEY ({$taID})";
+        $sql .= "PRIMARY KEY (primaryKey)";
         $sql .= ") CHARSET = utf8;";
         $res = $dbConnect->query($sql);
         if ($res) {

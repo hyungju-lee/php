@@ -3,7 +3,6 @@
     include '../../common/session.php';
     include '../../connection/connection.php';
     $sort = $_GET['sort'];
-    $sortID = $sort.'ID';
     $beforeSearch = $_GET['beforeSearch'];
     $searchKeyword = $_GET['searchKeyword'];
 ?>
@@ -24,13 +23,13 @@ include "../../include/head.php";
             <?php
             if (isset($_GET['boardID']) && (int) $_GET['boardID'] > 0) {
                 $boardID = $_GET['boardID'];
-                $sql = "SELECT b.{$sortID}, b.memberID, b.title, b.content, m.nickname, b.regTime FROM {$sort} b ";
+                $sql = "SELECT b.primaryKey, b.memberID, b.title, b.content, m.nickname, b.regTime FROM {$sort} b ";
                 $sql .= "JOIN member m ON (b.memberID = m.memberID) ";
-                $sql .= "WHERE b.{$sortID} = {$boardID}";
+                $sql .= "WHERE b.primaryKey = {$boardID}";
                 $result = $dbConnect -> query($sql);
                 if ($result) {
                     $contentInfo = $result->fetch_array(MYSQLI_ASSOC);
-                    $sortPK = $contentInfo[$sortID];
+                    $sortPK = $contentInfo['primaryKey'];
                     $regData = date("Y-m-d h:i", $contentInfo['regTime']);
                     echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
                     echo "<h3 class='board_tit'>".$contentInfo['title']."</h3>";

@@ -1,3 +1,3 @@
 <?php
-$tableArray = ['studyCss', 'studyHtml', 'studyJavascript', 'studyJquery', 'studyJqueryPlugin'];
+$tableArray = ['studycss', 'studyhtml', 'studyjavascript', 'studyjquery', 'studyjqueryplugin'];
 ?>

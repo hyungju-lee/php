@@ -15,8 +15,8 @@
     }
     $memberID = $_SESSION['memberID'];
     $regTime = time();
-    $sql = "INSERT INTO {$sort} (memberID, title, content, regTime) ";
-    $sql .= "VALUES ({$memberID}, '{$title}', '{$content}', {$regTime})";
+    $sql = "INSERT INTO {$sort} (tableName, memberID, title, content, regTime) ";
+    $sql .= "VALUES ({$sort}, {$memberID}, '{$title}', '{$content}', {$regTime})";
     $result = $dbConnect->query($sql);
     Header("Location:list.php?sort={$sort}");
 ?>

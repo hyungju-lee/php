@@ -2,6 +2,8 @@
     date_default_timezone_set('Asia/Seoul');
     include './common/session.php';
     include './connection/connection.php';
+    $sort = null;
+    $searchKeyword = null;
 ?>
 <!DOCTYPE HTML>
 <html lang="ko-KR">
@@ -32,8 +34,8 @@
             </div>
         <?php
             }
-        ?>
-        <?php
+//        $route = 'board/boardQuery';
+//        include 'board/boardQuery/searchForm.php';
         $sql = "SHOW TABLES WHERE `Tables_In_hyungju12` LIKE '%study%'";
         $result = $dbConnect->query($sql);
         if ($result) {

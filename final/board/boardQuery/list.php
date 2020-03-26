@@ -3,10 +3,12 @@
     include '../../common/session.php';
     include '../../connection/connection.php';
 
-    $sort = $_GET['sort'];
-    $sortID = $sort.'ID';
+    $sort = null;
     $beforeSearch = null;
     $searchKeyword = null;
+    if (isset($_GET['sort'])) {
+        $sort = $_GET['sort'];
+    }
     if (isset($_GET['beforeSearch'])) {
         $beforeSearch = $_GET['beforeSearch'];
     }
@@ -21,18 +23,44 @@
     }
     $numView = 20;
     $firstLimitValue = ($numView * $page) - $numView;
-    $sql = "SELECT b.{$sortID}, b.title, m.nickname, b.regTime FROM {$sort} b ";
-    $sql .= "JOIN member m ON (b.memberID = m.memberID)";
-    if (!$beforeSearch && $searchKeyword) {
-        $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+    if (!$sort) {
+        $allTable = "SHOW TABLES WHERE `Tables_In_hyungju12` LIKE '%study%'";
+        $resultTable = $dbConnect->query($allTable);
+        $totalNum = $resultTable->num_rows;
+        $i = 0;
+        $sql = "";
+        while ($row = mysqli_fetch_row($resultTable)) {
+            $sql .= "(SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$row[0]} b ";
+            $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+            if (!$beforeSearch && $searchKeyword) {
+                $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+            }
+            if ($beforeSearch && $searchKeyword) {
+                $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
+                $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
+            }
+            $sql .= "ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView})";
+            $i++;
+            if ($i < $totalNum) {
+                $sql .= " UNION ALL ";
+            }
+        }
+        $res = $dbConnect->query($sql);
+        $dataCount = $res->num_rows;
+    } else {
+        $sql = "SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$sort} b ";
+        $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+        if (!$beforeSearch && $searchKeyword) {
+            $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+        }
+        if ($beforeSearch && $searchKeyword) {
+            $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
+            $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
+        }
+        $sql .= "ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView}";
+        $res = $dbConnect->query($sql);
+        $dataCount = $res->num_rows;
     }
-    if ($beforeSearch && $searchKeyword) {
-        $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
-        $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
-    }
-    $sql .= "ORDER BY {$sortID} DESC LIMIT {$firstLimitValue}, {$numView}";
-    $res = $dbConnect->query($sql);
-    $dataCount = $res->num_rows;
 ?>
 <!DOCTYPE HTML>
 <html lang="ko-KR">
@@ -73,6 +101,7 @@
                     echo "</form>";
                 }
                 if (($dataCount > 0) && !($beforeSearch && $searchKeyword)) {
+                    $route = ".";
                     include 'searchForm.php';
                 }
                 if ($searchKeyword && !$beforeSearch) {
@@ -89,8 +118,8 @@
                 for ($i=0; $i<$dataCount; $i++) {
                     $memberInfo = $res->fetch_array(MYSQLI_ASSOC);
                     echo "<li class='page_list_item'>";
-                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo[$sortID]}&sort={$sort}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}'>";
-                    echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo[$sortID]."]</em> "."[".$memberInfo['title']."]</span>";
+                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}'>";
+                    echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo['primaryKey']."]</em> "." [".$memberInfo['tableName']."] "."[".$memberInfo['title']."]</span>";
                     echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                     echo "</a>";
                     echo "</li>";
