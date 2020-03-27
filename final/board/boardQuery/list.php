@@ -33,10 +33,8 @@
         $totalNum = $resultTable->num_rows;
         $i = 0;
         $sql = "";
-        $sql .= "(";
         while ($row = mysqli_fetch_row($resultTable)) {
-            $sql .= "(SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$row[0]} b ";
-            $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+            $sql .= "(SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$row[0]} b JOIN member m ON (b.memberID = m.memberID)";
             if (!$beforeSearch && $searchKeyword) {
                 $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
             }
@@ -49,7 +47,7 @@
                 $sql .= " UNION ALL ";
             }
         }
-        $sql .= ") ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView}";
+        $sql .= " ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView}";
         $result = $dbConnect->query($sql);
         $dataCount = $result->num_rows;
     } else {
