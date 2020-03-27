@@ -6,6 +6,7 @@
     $sort = null;
     $beforeSearch = null;
     $searchKeyword = null;
+    $totalSearch = null;
     if (isset($_GET['sort'])) {
         $sort = $_GET['sort'];
     }
@@ -14,6 +15,9 @@
     }
     if (isset($_GET['searchKeyword'])) {
         $searchKeyword = $_GET['searchKeyword'];
+    }
+    if (!$sort) {
+        $totalSearch = true;
     }
 
     if (isset($_GET['page'])) {
@@ -29,24 +33,25 @@
         $totalNum = $resultTable->num_rows;
         $i = 0;
         $sql = "";
+        $sql .= "(";
         while ($row = mysqli_fetch_row($resultTable)) {
             $sql .= "(SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$row[0]} b ";
             $sql .= "JOIN member m ON (b.memberID = m.memberID)";
             if (!$beforeSearch && $searchKeyword) {
-                $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+                $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
             }
             if ($beforeSearch && $searchKeyword) {
                 $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
-                $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
+                $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'))";
             }
-            $sql .= "ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView})";
             $i++;
             if ($i < $totalNum) {
                 $sql .= " UNION ALL ";
             }
         }
-        $res = $dbConnect->query($sql);
-        $dataCount = $res->num_rows;
+        $sql .= ") ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView}";
+        $result = $dbConnect->query($sql);
+        $dataCount = $result->num_rows;
     } else {
         $sql = "SELECT b.tableName, b.primaryKey, b.title, m.nickname, b.regTime FROM {$sort} b ";
         $sql .= "JOIN member m ON (b.memberID = m.memberID)";
@@ -58,8 +63,8 @@
             $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
         }
         $sql .= "ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView}";
-        $res = $dbConnect->query($sql);
-        $dataCount = $res->num_rows;
+        $result = $dbConnect->query($sql);
+        $dataCount = $result->num_rows;
     }
 ?>
 <!DOCTYPE HTML>
@@ -116,9 +121,9 @@
             if ($dataCount > 0) {
                 echo "<ul class='page_list'>";
                 for ($i=0; $i<$dataCount; $i++) {
-                    $memberInfo = $res->fetch_array(MYSQLI_ASSOC);
+                    $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                     echo "<li class='page_list_item'>";
-                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}'>";
+                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}&totalSearch={$totalSearch}'>";
                     echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo['primaryKey']."]</em> "." [".$memberInfo['tableName']."] "."[".$memberInfo['title']."]</span>";
                     echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                     echo "</a>";

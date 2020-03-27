@@ -4,7 +4,6 @@
     include '../../common/checkSignSession.php';
     include '../../connection/connection.php';
     $sort = $_GET['sort'];
-    $sortID = $sort.'ID';
     $title = $_POST['title'];
     $content = $_POST['content'];
     if ($title != null && $title != '') {
@@ -16,7 +15,12 @@
     $memberID = $_SESSION['memberID'];
     $regTime = time();
     $sql = "INSERT INTO {$sort} (tableName, memberID, title, content, regTime) ";
-    $sql .= "VALUES ({$sort}, {$memberID}, '{$title}', '{$content}', {$regTime})";
+    $sql .= "VALUES ('{$sort}', {$memberID}, '{$title}', '{$content}', {$regTime})";
     $result = $dbConnect->query($sql);
-    Header("Location:list.php?sort={$sort}");
+    if ($result) {
+        Header("Location:list.php?sort={$sort}");
+
+    } else {
+        echo $sql;
+    }
 ?>

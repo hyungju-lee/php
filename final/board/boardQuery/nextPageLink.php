@@ -2,46 +2,46 @@
     date_default_timezone_set('Asia/Seoul');
 
     if (!$sort) {
-        $allTable = "SHOW TABLES WHERE `Tables_In_hyungju12` LIKE '%study%'";
-        $resultTable = $dbConnect->query($allTable);
+        $allTablePage = "SHOW TABLES WHERE `Tables_In_hyungju12` LIKE '%study%'";
+        $resultTable = $dbConnect->query($allTablePage);
         $totalNum = $resultTable->num_rows;
         $i = 0;
-        $sql = "";
+        $sqlPage = "";
+        $sqlPage .= "SELECT count(*) FROM (";
         while ($row = mysqli_fetch_row($resultTable)) {
-            $sql .= "(SELECT count(b.primaryKey), b.title, m.nickname, b.regTime FROM {$row[0]} b ";
-            $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+            $sqlPage .= "(SELECT b.primaryKey FROM {$row[0]} b JOIN member m ON (b.memberID = m.memberID)";
             if (!$beforeSearch && $searchKeyword) {
-                $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+                $sqlPage .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
             }
             if ($beforeSearch && $searchKeyword) {
-                $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
-                $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
+                $sqlPage .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
+                $sqlPage .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'))";
             }
-            $sql .= "ORDER BY primaryKey DESC LIMIT {$firstLimitValue}, {$numView})";
             $i++;
             if ($i < $totalNum) {
-                $sql .= " UNION ALL ";
+                $sqlPage .= " UNION ALL ";
             }
         }
-        $result = $dbConnect->query($sql);
+        $sqlPage .= ") board";
+        $resultPage = $dbConnect->query($sqlPage);
     } else {
-        $sql = "SELECT count(b.primaryKey), b.title, m.nickname, b.regTime FROM {$sort} b ";
-        $sql .= "JOIN member m ON (b.memberID = m.memberID)";
+        $sqlPage = "SELECT count(*) FROM {$sort} b ";
+        $sqlPage .= "JOIN member m ON (b.memberID = m.memberID)";
         if (!$beforeSearch && $searchKeyword) {
-            $sql .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
+            $sqlPage .= " WHERE title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%'";
         }
         if ($beforeSearch && $searchKeyword) {
-            $sql .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
-            $sql .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
+            $sqlPage .= " WHERE (title LIKE '%{$beforeSearch}%' OR content LIKE '%{$beforeSearch}%') AND ";
+            $sqlPage .= "(title LIKE '%{$searchKeyword}%' OR content LIKE '%{$searchKeyword}%')";
         }
-        $result = $dbConnect->query($sql);
+        $resultPage = $dbConnect->query($sqlPage);
     }
 
-    if (!$result) {
+    if (!$resultPage) {
         echo "오류";
     } else {
-        $boardTotalCount = $result->fetch_array(MYSQLI_ASSOC);
-        $boardTotalCount = $boardTotalCount['count(b.primaryKey)'];
+        $boardTotalCount = $resultPage->fetch_array(MYSQLI_ASSOC);
+        $boardTotalCount = $boardTotalCount['count(*)'];
         $totalPage = ceil($boardTotalCount / $numView);
 
         echo "<nav class='page navigation'>";

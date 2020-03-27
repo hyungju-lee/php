@@ -3,7 +3,6 @@
     include '../../connection/connection.php';
     $boardID = $_POST['sortID'];
     $sort = $_POST['sort'];
-    $sortID = $sort.'ID';
-    $sql = "DELETE FROM {$sort} WHERE {$sortID} = {$boardID}";
+    $sql = "DELETE FROM {$sort} WHERE primaryKey = {$boardID}";
     $res = $dbConnect->query($sql);
 ?>

@@ -3,6 +3,7 @@
     include '../../common/session.php';
     include '../../connection/connection.php';
     $sort = $_GET['sort'];
+    $totalSearch = $_GET['totalSearch'];
     $beforeSearch = $_GET['beforeSearch'];
     $searchKeyword = $_GET['searchKeyword'];
 ?>
@@ -47,6 +48,9 @@ include "../../include/head.php";
                             echo "<button class='btn btn-dark btn-delete d-inline-block ml-1' type='submit' onclick='delete_ly();'>삭제</button>";
                         }
                     }
+                    if ($totalSearch) {
+                        $sort = null;
+                    }
                     echo "<a class='btn btn-dark d-inline-block ml-1' href='list.php?sort={$sort}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}'>이전페이지</a>";
                     echo "</div>";
                 } else {
@@ -54,7 +58,7 @@ include "../../include/head.php";
                     exit;
                 }
             } else {
-                echo "잘못된 접근입니다.";
+                echo "잘못된 접근입니다2.";
                 exit;
             }
             ?>

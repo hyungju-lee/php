@@ -3,7 +3,6 @@
     include '../../common/session.php';
     include '../../connection/connection.php';
     $sort = $_POST['sort'];
-    $sortID = $sort.'ID';
     $memberID = $_POST['memberId'];
     $regTime = time();
     $title = $_POST['title'];
@@ -12,7 +11,7 @@
     $nowID = $_SESSION['memberID'];
     if ($memberID == $nowID) {
         $sql = "UPDATE {$sort} SET title = '{$title}', content = '{$content}', ";
-        $sql .= "regTime = {$regTime} WHERE {$sortID} = {$sortPK}";
+        $sql .= "regTime = {$regTime} WHERE primaryKey = {$sortPK}";
         $res = $dbConnect->query($sql);
         Header("Location:list.php?sort={$sort}");
     } else {

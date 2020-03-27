@@ -4,9 +4,9 @@
     include '../../connection/connection.php';
     include '../../common/checkSignSession.php';
     $sort = $_POST['sort'];
-    $sortID = $sort.'ID';
     $sortPK = $_POST['sortID'];
-    $sql = "SELECT title, content, memberID FROM {$sort} WHERE {$sortID} = {$sortPK}";
+
+    $sql = "SELECT title, content, memberID FROM {$sort} WHERE primaryKey = {$sortPK}";
     $result = $dbConnect->query($sql);
     if (!$result) {
         echo "오류";
