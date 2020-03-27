@@ -41,11 +41,12 @@ include "../../include/head.php";
                         $memberID = $_SESSION['memberID'];
                         if ($memberID == $contentInfo['memberID']) {
                             echo "<form class='d-inline-block align-top' action='updateWriteForm.php' method='post'>";
-                            echo "<input type='hidden' name='sort' value='{$sort}'>";
-                            echo "<input type='hidden' name='sortID' value='{$sortPK}'>";
-                            echo "<button type='submit' class='btn btn-dark'>수정</button>";
+                            echo "<input type='hidden' id='iptSort' name='sort' value=''>";
+                            echo "<input type='hidden' id='iptSortId' name='sortID' value=''>";
+                            echo "<button type='submit' class='btn btn-dark btn-edit d-inline-block align-top' onclick='edit();'>수정</button>";
                             echo "</form>";
-                            echo "<button class='btn btn-dark btn-delete d-inline-block ml-1' type='submit' onclick='delete_ly();'>삭제</button>";
+
+                            echo "<button class='btn btn-dark btn-delete d-inline-block align-top ml-1' type='submit' onclick='delete_ly();'>삭제</button>";
                         }
                     }
                     if ($totalSearch) {
@@ -83,6 +84,11 @@ include "../../include/script.php";
 <script>
     function delete_ly() {
         document.querySelector('.modal-del').style.display = 'block';
+    }
+    function edit() {
+        document.getElementById('iptSort').value = "<?php echo $sort; ?>";
+        document.getElementById('iptSortId').value = <?php echo $sortPK; ?>;
+        document.querySelector('.btn-edit').submit();
     }
     function yes() {
         $.ajax({
