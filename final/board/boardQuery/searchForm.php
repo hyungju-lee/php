@@ -9,7 +9,8 @@ echo "<form class='d-inline-block align-top' name='search' method='get' action='
                 echo "<input type='hidden' name='beforeSearch' value='{$searchKeyword}'>";
             }
             if ($sort) {
-                echo "<input class='form-control' type='text' name='searchKeyword' required placeholder='{$sort}'>";
+                $sortName = str_replace('study','',$sort);
+                echo "<input class='form-control' type='text' name='searchKeyword' required placeholder='{$sortName}'>";
             } else {
                 echo "<input class='form-control' type='text' name='searchKeyword' required placeholder='전체검색'>";
             }

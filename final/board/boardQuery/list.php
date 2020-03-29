@@ -115,14 +115,20 @@
                 ?>
             </div>
             <?php
-            echo "<h2 class='list_h2'>{$sort} 게시판</h2>";
+            $boardName = str_replace('study','',$sort);
+            if ($boardName) {
+                echo "<h2 class='list_h2'>{$boardName} 게시판</h2>";
+            } else {
+                echo "<h2 class='list_h2'>전체 게시판</h2>";
+            }
             if ($dataCount > 0) {
                 echo "<ul class='page_list'>";
                 for ($i=0; $i<$dataCount; $i++) {
                     $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
+                    $pageTitle = str_replace('study','',$memberInfo['tableName']);
                     echo "<li class='page_list_item'>";
                     echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}&totalSearch={$totalSearch}'>";
-                    echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo['primaryKey']."]</em> "." [".$memberInfo['tableName']."] "."[".$memberInfo['title']."]</span>";
+                    echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo['primaryKey']."]</em> "." [".$pageTitle."] "."[".$memberInfo['title']."]</span>";
                     echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                     echo "</a>";
                     echo "</li>";
