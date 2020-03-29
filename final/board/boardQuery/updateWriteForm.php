@@ -13,7 +13,7 @@
     }
     $boardInfo = $result->fetch_array(MYSQLI_ASSOC);
     $boardTitle = $boardInfo['title'];
-    $boardCont = $boardInfo['content'];
+    $boardCont = htmlentities($boardInfo['content']);
     $boardMemberId = $boardInfo['memberID'];
 ?>
 
