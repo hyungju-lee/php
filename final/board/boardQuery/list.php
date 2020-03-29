@@ -127,7 +127,7 @@
                     $memberInfo = $result->fetch_array(MYSQLI_ASSOC);
                     $pageTitle = str_replace('study','',$memberInfo['tableName']);
                     echo "<li class='page_list_item'>";
-                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}&totalSearch={$totalSearch}'>";
+                    echo "<a class='page_link float-area' href='view.php?boardID={$memberInfo['primaryKey']}&sort={$memberInfo['tableName']}&bname={$boardName}&beforeSearch={$beforeSearch}&searchKeyword={$searchKeyword}&totalSearch={$totalSearch}'>";
                     echo "<span class='float-left'><em class='em mr-2'>[No ".$memberInfo['primaryKey']."]</em> "." [".$pageTitle."] "."[".$memberInfo['title']."]</span>";
                     echo "<strong class='float-right white-space-nowrap'><span class='mr-2'>[".$memberInfo['nickname']."]</span> [".date('Y-m-d H:i', $memberInfo['regTime'])."]</strong>";
                     echo "</a>";

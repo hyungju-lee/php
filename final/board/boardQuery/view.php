@@ -6,6 +6,7 @@
     $totalSearch = $_GET['totalSearch'];
     $beforeSearch = $_GET['beforeSearch'];
     $searchKeyword = $_GET['searchKeyword'];
+    $bname = $_GET['bname'];
 ?>
 <!DOCTYPE HTML>
 <html lang="ko">
@@ -32,7 +33,7 @@ include "../../include/head.php";
                     $contentInfo = $result->fetch_array(MYSQLI_ASSOC);
                     $sortPK = $contentInfo['primaryKey'];
                     $regData = date("Y-m-d h:i", $contentInfo['regTime']);
-                    echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
+                    echo "<h2 class='board_subject'>{$bname} 게시판</h2>";
                     echo "<h3 class='board_tit'>".$contentInfo['title']."</h3>";
                     echo "<div class='board_info'><span class='align-middle'>".$contentInfo['nickname']."</span><span class='stick'></span><span class='align-middle'>".$regData."</span></div>";
                     echo "<div class='board_cont click2edit'>".$contentInfo['content']."</div>";
