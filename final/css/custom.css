@@ -43,3 +43,7 @@ html,body,.wrap{height: 100%;}
 .board_cont ol li, .note-editable ol li {position: relative; padding-left: 20px; counter-increment: my-awesome-counter;}
 .board_cont ol li:not(:first-child), .note-editable ol li:not(:first-child) {margin-top:10px}
 .board_cont ol li:before, .note-editable ol li:before {position:absolute;top:0;left:8px;content:counter(my-awesome-counter) ".";}
+
+@media screen and (max-width:768px) {
+    .board_cont img {width:100% !important}
+}
