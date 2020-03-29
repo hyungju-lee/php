@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.summernote').summernote({
-        placeholder: 'Hello Bootstrap 4',
+        placeholder: '텍스트를 입력하세요.',
         tabsize: 2,
         lang: 'ko-KR', // default: 'en-US'
         height: 300,

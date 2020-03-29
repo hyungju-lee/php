@@ -38,9 +38,9 @@
                 <div class="form-group">
                     <label for="title">제목</label>
             <?php
-                echo "<input type='hidden' name='sort' value='{$sort}'>";
-                echo "<input type='hidden' name='sortId' value='{$sortPK}'>";
-                echo "<input type='hidden' name='memberId' value='{$boardMemberId}'>";
+                echo "<input type='hidden' id='iptSort2' name='sort' value=''>";
+                echo "<input type='hidden' id='iptSortId2' name='sortId' value=''>";
+                echo "<input type='hidden' id='memberId2' name='memberId' value=''>";
                 echo "<input id='title' class='form-control' type='text' name='title' value='{$boardTitle}' required>";
             ?>
                 </div>
@@ -52,7 +52,7 @@
             ?>
                 </div>
                 <div class="btn-area">
-                    <button class="btn btn-dark" type="submit">저장</button>
+                    <button class="btn btn-dark btn-save" type="submit" onclick="save();">저장</button>
                     <button class="btn btn-dark" type="button" onclick="cancel();">취소</button>
                 </div>
             </form>
@@ -66,6 +66,13 @@
 include "../../include/script.php";
 ?>
 <script>
+    function save() {
+        document.getElementById('iptSort2').value = "<?php echo $sort; ?>";
+        document.getElementById('iptSortId2').value = <?php echo $sortPK; ?>;
+        document.getElementById('memberId2').value = <?php echo $boardMemberId; ?>;
+
+        document.querySelector('.btn-save').submit();
+    }
     function cancel() {
         history.go(-1);
     }

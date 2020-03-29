@@ -5,7 +5,7 @@
     include '../../connection/connection.php';
     $sort = $_GET['sort'];
     $title = $_POST['title'];
-    $content = $_POST['content'];
+    $content = addslashes($_POST['content']);
     if ($title != null && $title != '') {
         $title = $dbConnect->real_escape_string($title);
     }
