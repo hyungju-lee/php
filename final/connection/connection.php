@@ -10,7 +10,7 @@
 
 //    $host = "localhost";
 //    $user = "hyungju12";
-//    $pw = "wlgml1082!!";
+//    $pw = "비밀번호~~!!";
 //    $database = "hyungju12";
 //    $port = 3307;
 //    $dbConnect = new mysqli($host, $user, $pw, $database);
