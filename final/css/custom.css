@@ -39,7 +39,7 @@ html,body,.wrap{height: 100%;}
 .board_cont pre,.note-editable pre{padding:20px;border-radius:5px}
 .board_cont ul li, .note-editable ul li {position: relative; padding-left: 20px;}
 .board_cont ul li:not(:first-child), .note-editable ul li:not(:first-child) {margin-top:10px}
-.board_cont ul li:before, .note-editable ul li:before {position:absolute;top:5px;left:8px;width:3px;height:3px;background-color:#222;content:'';}
+.board_cont ul li:before, .note-editable ul li:before {position:absolute;top:11px;left:8px;width:3px;height:3px;background-color:#222;content:'';}
 .board_cont ol li, .note-editable ol li {position: relative; padding-left: 20px; counter-increment: my-awesome-counter;}
 .board_cont ol li:not(:first-child), .note-editable ol li:not(:first-child) {margin-top:10px}
 .board_cont ol li:before, .note-editable ol li:before {position:absolute;top:0;left:8px;content:counter(my-awesome-counter) ".";}
