@@ -32,7 +32,8 @@
     <div class="container">
         <div class="contents">
             <?php
-            echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
+            $boardName = str_replace('study','',$sort);
+            echo "<h2 class='board_subject'>{$boardName} 게시판</h2>";
             echo "<form name='boardWrite' method='post' action='update.php'  enctype='multipart/form-data'>";
             ?>
                 <div class="form-group">

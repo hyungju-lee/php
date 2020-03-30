@@ -19,7 +19,6 @@
     $result = $dbConnect->query($sql);
     if ($result) {
         Header("Location:list.php?sort={$sort}");
-
     } else {
         echo $sql;
     }

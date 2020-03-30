@@ -6,6 +6,12 @@
     $imgTable = "CREATE TABLE img (";
     $imgTable .= "primaryKey int(10) unsigned NOT NULL AUTO_INCREMENT,";
     $imgTable .= "memberID int(10) unsigned NOT NULL,";
+    $imgTable .= "contentsType varchar(50) NOT NULL,";
+    $imgTable .= "fileName varchar(50) NOT NULL,";
+    $imgTable .= "filePath varchar(50) NOT NULL,";
+    $imgTable .= "regTime int(10) unsigned NOT NULL,";
+    $imgTable .= "saveFileName varchar(50) NOT NULL,";
+    $imgTable .= "imgSize int(10) NOT NULL,";
     $imgTable .= "PRIMARY KEY (primaryKey)";
     $imgTable .= ") CHARSET = utf8;";
     $result = $dbConnect->query($imgTable);
@@ -14,7 +20,6 @@
     } else {
         echo "img 생성 실패<br>";
     }
-
     foreach ($tableArray as $ta) {
         $taID = $ta.'ID';
         $sql = "CREATE TABLE {$ta} (";

@@ -50,9 +50,24 @@ $(document).ready(function() {
             onImageUpload: function (image) {
                 uploadImage(image[0]);
             },
-            //https://summernote.org/deep-dive/#insertnode
             onMediaDelete: function (target) {
-                deleteFile(target[0].src);
+                deleteImage(target[0].src);
+                // remove element in editor
+                target.remove();
+            },
+            onKeyup: function (e) {
+                // 이미지 여러개일때 고려
+                // https://github.com/summernote/summernote-rails/blob/master/example/app/assets/javascripts/summernote-init.coffee
+                // 이전 innerHTML과 백스페이스 or del 키 눌렀을 때 innerHTML과 비교해서 해야되는 거같은데..
+                var oldValue = e.target.innerHTML;
+                if (e.keyCode == 8 || e.keyCode == 46) {
+                    var newValue = e.target.innerHTML;
+
+                    console.log(newValue)
+                    if (newValue.match(/<img\s(?:.+?)>/g)) {
+                        console.log('진짜지울꺼야?')
+                    }
+                }
             }
         }
     });
@@ -78,14 +93,19 @@ $(document).ready(function() {
         });
     }
 
-    function deleteFile(src) {
+    function deleteImage(src) {
+        var imgSrc = src;
+        var data = new FormData();
+        data.append("imgSrc", imgSrc);
         $.ajax({
-            data: {src : src},
+            data: data,
             type: "POST",
-            url: './fileDelete.php',
+            url: "./fileDelete.php",
             cache: false,
-            success: function(resp) {
-                console.log(resp);
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
             }
         });
     }
