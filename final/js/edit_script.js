@@ -45,6 +45,48 @@ $(document).ready(function() {
         tabDisable: true,
         codeviewFilter: false,
         codeviewIframeFilter: true,
-        spellCheck: true
+        spellCheck: true,
+        callbacks: {
+            onImageUpload: function (image) {
+                uploadImage(image[0]);
+            },
+            //https://summernote.org/deep-dive/#insertnode
+            onMediaDelete: function (target) {
+                deleteFile(target[0].src);
+            }
+        }
     });
+
+    function uploadImage(image) {
+        var data = new FormData();
+        data.append("image", image);
+        $.ajax({
+            url: './fileUpload.php',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            type: "post",
+            dataType: "JSON",
+            success: function(data) {
+                var image = $('<img>').attr('src', data.src);
+                $('.summernote').summernote("insertNode", image[0]);
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function deleteFile(src) {
+        $.ajax({
+            data: {src : src},
+            type: "POST",
+            url: './fileDelete.php',
+            cache: false,
+            success: function(resp) {
+                console.log(resp);
+            }
+        });
+    }
 });

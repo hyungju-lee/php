@@ -21,7 +21,7 @@
         <div class="contents">
             <?php
             echo "<h2 class='board_subject'>{$sort} 게시판</h2>";
-            echo "<form name='boardWrite' method='post' action='saveboard.php?sort={$sort}'>";
+            echo "<form name='boardWrite' method='post' action='saveboard.php?sort={$sort}'  enctype='multipart/form-data'>";
             ?>
                 <div class="form-group">
                     <label for="title">제목</label>

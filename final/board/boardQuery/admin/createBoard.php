@@ -2,6 +2,19 @@
     date_default_timezone_set('Asia/Seoul');
     include '../../../connection/connection.php';
     include "./table.php";
+
+    $imgTable = "CREATE TABLE img (";
+    $imgTable .= "primaryKey int(10) unsigned NOT NULL AUTO_INCREMENT,";
+    $imgTable .= "memberID int(10) unsigned NOT NULL,";
+    $imgTable .= "PRIMARY KEY (primaryKey)";
+    $imgTable .= ") CHARSET = utf8;";
+    $result = $dbConnect->query($imgTable);
+    if ($result) {
+        echo "img 생성 완료<br>";
+    } else {
+        echo "img 생성 실패<br>";
+    }
+
     foreach ($tableArray as $ta) {
         $taID = $ta.'ID';
         $sql = "CREATE TABLE {$ta} (";
@@ -20,4 +33,5 @@
             echo "{$ta} 생성 실패 <br>";
         }
     }
+
 ?>
