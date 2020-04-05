@@ -1,3 +1,5 @@
 <?php
-echo "삭제";
+$del = $_POST['image'];
+echo $del;
+unlink($del);
 ?>

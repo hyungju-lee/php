@@ -51,7 +51,7 @@ $(document).ready(function() {
                 uploadImage(image[0]);
             },
             onMediaDelete: function (target) {
-                deleteImage(target[0].src);
+                deleteImage(target[0].attributes[0].value);
                 // remove element in editor
                 target.remove();
             },
@@ -63,7 +63,8 @@ $(document).ready(function() {
                 if (e.keyCode == 8 || e.keyCode == 46) {
                     var newValue = e.target.innerHTML;
 
-                    console.log(newValue)
+                    var nn = oldValue.match(/<img\s(?:.+?)>/g)
+                    console.dir($('.note-editable img'));
                     if (newValue.match(/<img\s(?:.+?)>/g)) {
                         console.log('진짜지울꺼야?')
                     }
@@ -93,10 +94,9 @@ $(document).ready(function() {
         });
     }
 
-    function deleteImage(src) {
-        var imgSrc = src;
+    function deleteImage(image) {
         var data = new FormData();
-        data.append("imgSrc", imgSrc);
+        data.append("image", image);
         $.ajax({
             data: data,
             type: "POST",
@@ -105,7 +105,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function (data) {
-                console.log(data);
+                console.dir(data);
             }
         });
     }
